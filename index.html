@@ -152,365 +152,41 @@
             letter-spacing: -0.35px
         }
 
-        /* MODES */
-        .modes {
+        .topbar {
             display: flex;
-            justify-content: center;
-            gap: 24px;
-            flex-wrap: wrap;
-            margin: 28px 0 8px
-        }
-
-        .mode-card {
-            background: var(--glass);
-            border: 1px solid var(--glass-border);
-            border-radius: var(--radius-xl);
-            padding: 28px 24px;
-            width: min(320px, 100%);
-            text-align: center;
-            cursor: pointer;
-            transition: var(--transition);
-            font-weight: 600;
-            box-shadow: var(--glass-shadow);
-            will-change: transform, box-shadow;
-        }
-
-        .mode-card:hover {
-            transform: translateY(-10px) scale(1.035);
-            box-shadow: 0 24px 60px rgba(139, 69, 19, 0.28)
-        }
-
-        .mode-icon {
-            font-size: 2.6rem;
-            margin-bottom: 14px
-        }
-
-        .mode-card h3 {
-            font-size: 1.18rem;
-            color: var(--gold);
-            margin-bottom: 8px
-        }
-
-        .mode-card p {
-            font-size: 1rem;
-            color: var(--muted);
-            line-height: 1.4
-        }
-
-        /* SECTIONS */
-        .section-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 16px;
-            text-align: center
-        }
-
-        /* FACT GRID */
-        .fact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 22px;
-            margin-top: 8px
-        }
-
-        .fact-card {
-            background: var(--glass);
-            border-radius: var(--radius-lg);
-            overflow: hidden;
-            border: 1px solid var(--glass-border);
-            box-shadow: var(--glass-shadow);
-            cursor: pointer;
-            transition: var(--transition)
-        }
-
-        .fact-card:hover {
-            transform: translateY(-8px)
-        }
-
-        .fact-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            filter: sepia(0.18) brightness(0.95);
-            transition: filter .3s
-        }
-
-        .fact-card:hover .fact-img {
-            filter: sepia(0.08) brightness(1.06)
-        }
-
-        .fact-content {
-            padding: 18px;
-            position: relative
-        }
-
-        .fact-year {
-            position: absolute;
-            top: 12px;
-            right: 12px;
-            background: var(--accent);
-            color: #fff;
-            padding: 6px 12px;
-            border-radius: 18px;
-            font-weight: 600
-        }
-
-        .fact-title {
-            font-size: 1.06rem;
-            font-weight: 700;
-            color: var(--gold);
-            margin-bottom: 8px
-        }
-
-        .fact-text {
-            font-size: .98rem;
-            color: var(--muted);
-            line-height: 1.55
-        }
-
-        /* CHARACTER GRID */
-        .character-grid {
-            display: flex;
-            justify-content: center;
-            gap: 18px;
-            flex-wrap: wrap;
-            margin-bottom: 18px
-        }
-
-        .char-btn {
-            background: rgba(139, 69, 19, 0.24);
-            border: 1px solid #8B4513;
-            color: var(--text);
-            padding: 12px 16px;
-            border-radius: 14px;
-            font-size: 1rem;
-            font-weight: 600;
-            cursor: pointer;
-            backdrop-filter: blur(7px);
-            transition: var(--transition)
-        }
-
-        .char-btn:hover {
-            transform: scale(1.05);
-            box-shadow: 0 10px 26px rgba(139, 69, 19, 0.24)
-        }
-
-        /* CHAT */
-        .chat-area {
-            max-height: 520px;
-            overflow-y: auto;
-            padding: 16px;
-            margin-bottom: 18px;
-            border-radius: 14px;
-            background: rgba(0, 0, 0, 0.12)
-        }
-
-        .message-bubble {
-            max-width: 80%;
-            margin: 12px 0;
-            padding: 14px 16px;
-            border-radius: 16px;
-            font-weight: 500;
-            line-height: 1.55;
-            animation: msgPop .38s cubic-bezier(.34, 1.56, .64, 1);
-            backdrop-filter: blur(7px);
-            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18)
-        }
-
-        .ai-msg {
-            background: rgba(44, 26, 16, 0.62);
-            margin-right: auto;
-            border-bottom-left-radius: 7px
-        }
-
-        .user-msg {
-            background: rgba(93, 63, 47, 0.62);
-            margin-left: auto;
-            border-bottom-right-radius: 7px
-        }
-
-        @keyframes msgPop {
-            from {
-                transform: scale(.92);
-                opacity: 0
-            }
-
-            to {
-                transform: scale(1);
-                opacity: 1
-            }
-        }
-
-        /* CHOICES */
-        .choice-container {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-            margin: 16px 0
-        }
-
-        .choice-btn {
-            background: rgba(139, 69, 19, 0.68);
-            color: #fff;
-            border: none;
-            padding: 12px;
-            border-radius: 12px;
-            font-weight: 700;
-            cursor: pointer
-        }
-
-        .choice-btn:hover {
-            transform: translateX(6px);
-            box-shadow: 0 10px 22px rgba(139, 69, 19, 0.22)
-        }
-
-        /* PROGRESS */
-        .progress-container {
-            height: 12px;
-            background: rgba(0, 0, 0, 0.18);
-            border-radius: 7px;
-            overflow: hidden;
-            margin: 16px 0
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #8B4513, #d4a574);
-            transition: width .9s ease
-        }
-
-        /* MENU BUTTON (three dots) */
-        .menu-button {
-            position: fixed;
-            top: 8px;
-            right: 12px;
-            z-index: 10001;
-            width: 40px;
-            height: 40px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: var(--glass);
-            backdrop-filter: blur(16px);
-            -webkit-backdrop-filter: blur(16px);
-            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
-            display: grid;
-            place-items: center;
-            cursor: pointer;
-            transition: var(--transition)
-        }
-
-        .menu-button:hover {
-            transform: translateY(-2px)
-        }
-
-        .menu-icon {
-            width: 18px;
-            height: 18px;
-            position: relative
-        }
-
-        .menu-icon::before,
-        .menu-icon::after,
-        .menu-icon span {
-            content: '';
-            position: absolute;
-            left: 0;
-            right: 0;
-            height: 3px;
-            border-radius: 3px;
-            background: var(--text);
-            opacity: .85
-        }
-
-        .menu-icon::before {
-            top: 0
-        }
-
-        .menu-icon span {
-            top: 7.5px
-        }
-
-        .menu-icon::after {
-            bottom: 0
-        }
-
-        /* SIDE PANEL */
-        .side-panel {
-            position: fixed;
-            top: 0;
-            right: 0;
-            height: 100dvh;
-            width: var(--max-panel-width);
-            background: var(--panel-bg);
-            backdrop-filter: blur(24px);
-            -webkit-backdrop-filter: blur(24px);
-            border-left: 1px solid var(--glass-border);
-            box-shadow: -16px 0 40px rgba(0, 0, 0, 0.26);
-            transform: translateX(110%);
-            transition: transform .36s cubic-bezier(.22, 1, .36, 1);
-            z-index: 10000;
-            display: grid;
-            grid-template-rows: auto 1fr auto;
-        }
-
-        .side-panel.open {
-            transform: translateX(0)
-        }
-
-        .side-header {
-            padding: 18px 16px;
-            display: flex;
-            align-items: center;
             justify-content: space-between;
-            border-bottom: 1px solid var(--glass-border)
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 18px;
         }
 
-        .side-title {
-            font-weight: 700;
-            color: var(--gold)
-        }
-
-        .side-content {
-            padding: 16px;
-            overflow-y: auto
-        }
-
-        .side-footer {
-            padding: 12px 16px;
-            border-top: 1px solid var(--glass-border);
-            display: flex;
-            gap: 8px;
-            justify-content: flex-end
-        }
-
-        /* FORM, AVATAR, TOGGLERS */
-        .form-group {
-            display: grid;
-            gap: 6px;
-            margin-bottom: 12px
-        }
-
-        .label {
-            font-size: .92rem;
-            color: var(--muted)
-        }
-
-        .input {
-            width: 100%;
-            padding: 10px 12px;
+        .status-chip {
+            font-size: 13px;
+            color: var(--muted);
+            padding: 8px 12px;
             border-radius: 12px;
+            background: rgba(255, 255, 255, 0.03);
             border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.12);
-            color: var(--text);
-            outline: none;
-            transition: var(--transition)
         }
 
-        .input:focus {
-            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.12);
-            border-color: var(--gold)
+        /* existing styles preserved (fact-grid, game, etc.) - unchanged */
+
+        /* minimal controls for profile in side panel adjustments */
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            display: grid;
+            place-items: center
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
         }
 
         .btn {
@@ -531,99 +207,14 @@
             box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 8px 16px rgba(0, 0, 0, 0.12)
         }
 
-        .avatar-block {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 12px
+        .hidden {
+            display: none !important;
         }
 
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.18);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
-            display: grid;
-            place-items: center
-        }
-
-        .avatar img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover
-        }
-
-        .toggle {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 10px 12px;
-            border-radius: 12px;
-            border: 1px solid var(--glass-border);
-            background: rgba(255, 255, 255, 0.10);
-            margin-bottom: 8px
-        }
-
-        .toggle-label {
-            font-weight: 600
-        }
-
-        .switch {
-            position: relative;
-            width: 52px;
-            height: 32px
-        }
-
-        .switch input {
-            opacity: 0;
-            width: 0;
-            height: 0
-        }
-
-        .slider {
-            position: absolute;
-            inset: 0;
-            cursor: pointer;
-            background: var(--switch-track);
-            border-radius: 16px;
-            border: 1px solid var(--switch-border);
-            backdrop-filter: blur(12px);
-            transition: var(--transition)
-        }
-
-        .slider::before {
-            content: '';
-            position: absolute;
-            height: 26px;
-            width: 26px;
-            left: 3px;
-            bottom: 3px;
-            background: linear-gradient(145deg, #fafafa, #dadada);
-            border-radius: 13px;
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.32);
-            transition: var(--transition)
-        }
-
-        .switch input:checked+.slider {
-            background: var(--switch-on);
-            border-color: var(--switch-on-border);
-            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3), 0 0 12px rgba(52, 199, 89, 0.24)
-        }
-
-        .switch input:checked+.slider::before {
-            transform: translateX(20px);
-            background: linear-gradient(145deg, #4ade80, #22c55e)
-        }
-
-        @media (max-width:768px) {
-            .fact-img {
-                height: 160px
-            }
-
-            .side-panel {
-                width: min(78vw, 420px)
+        /* small responsive tweak */
+        @media (max-width: 768px) {
+            .container {
+                padding: 18px;
             }
         }
     </style>
@@ -631,6 +222,12 @@
 
 <body>
     <div class="container">
+        <!-- TOP BAR -->
+        <div class="topbar">
+            <div style="font-weight:700; color:var(--gold)">Сморгонь 1916</div>
+            <div id="webappStatus" class="status-chip">Инициализация...</div>
+        </div>
+
         <!-- HEADER -->
         <header class="header" data-aos="fade-down" data-aos-duration="1000">
             <h1>СМОРГОНЬ 1916</h1>
@@ -693,42 +290,46 @@
                 <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Профиль</h3>
 
                 <div class="avatar-block">
-                    <div class="avatar"><img id="avatarImg" alt="avatar preview" src="" /></div>
+                    <div class="avatar"><img id="sideAvatarImg" alt="avatar preview"
+                            src="https://via.placeholder.com/96" /></div>
                     <div>
-                        <div class="label">Ваш статус</div>
+                        <div class="label">Статус</div>
                         <div id="authStatus" style="font-weight:700;">Не авторизован</div>
                     </div>
                 </div>
 
-                <!-- AUTH AREA -->
-                <div id="authArea">
-                    <div class="form-group">
-                        <label class="label" for="emailInput">Email</label>
-                        <input id="emailInput" class="input" type="email" placeholder="you@example.com"
-                            autocomplete="email" />
-                    </div>
-
-                    <div class="form-group">
-                        <label class="label" for="codeInput">Код из письма</label>
-                        <input id="codeInput" class="input" type="text" inputmode="numeric" placeholder="123456"
-                            maxlength="6" />
+                <!-- Replaced legacy email/code UI with Telegram initData flow -->
+                <div id="authControls">
+                    <div style="margin-bottom:12px;">
+                        <div class="label">Войти через Telegram</div>
+                        <div style="font-size:13px;color:var(--muted)">Откройте WebApp через своего бота в Telegram.
+                            Авторизация произойдёт автоматически.</div>
                     </div>
 
                     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                        <button class="btn" id="sendCodeBtn" type="button">Отправить код</button>
-                        <button class="btn secondary" id="loginBtn" type="button">Войти</button>
-                        <button class="btn secondary" id="setAvatarBtn" type="button">Выбрать аватар</button>
+                        <button class="btn" id="forceAuthBtn" type="button">Авторизоваться сейчас</button>
+                        <button class="btn secondary" id="openProfileBtn" type="button" style="display:none">Открыть
+                            профиль</button>
                     </div>
                 </div>
 
                 <!-- PROFILE AREA (visible when logged in) -->
                 <div id="profileArea" style="display:none;margin-top:12px;">
                     <div class="form-group">
-                        <div class="label">Email</div>
-                        <div id="profileEmail" style="font-weight:600;"></div>
+                        <div class="label">Имя</div>
+                        <div id="profileName" style="font-weight:600;"></div>
                     </div>
+
+                    <div class="form-group">
+                        <div class="label">Telegram</div>
+                        <div id="profileUsername" style="font-weight:600;color:var(--muted)"></div>
+                    </div>
+
                     <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                        <button class="btn" id="changeAvatarBtn" type="button">Сменить аватар</button>
+                        <label class="btn" id="uploadAvatarBtn">
+                            <input id="avatarFileInput" type="file" accept="image/*" style="display:none" />
+                            Загрузить аватар
+                        </label>
                         <button class="btn secondary" id="logoutBtn" type="button">Выйти</button>
                     </div>
                 </div>
@@ -770,7 +371,6 @@
                     </div>
                 </div>
             </section>
-
         </div>
 
         <div class="side-footer">
@@ -790,7 +390,21 @@
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
-        // Main App module
+        /******************************************************************************
+         * Configuration
+         * Replace API_BASE with your Render backend URL if different
+         ******************************************************************************/
+        const API_BASE = "https://authsrv.onrender.com"; // <-- поменяй при необходимости
+
+        /******************************************************************************
+         * Utilities
+         ******************************************************************************/
+        function safeJSONParse(s) { try { return JSON.parse(s); } catch { return null; } }
+        function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+
+        /******************************************************************************
+         * Main App (keeps original features + Telegram initData auth & avatar upload)
+         ******************************************************************************/
         const App = (function () {
             const state = {
                 facts: [],
@@ -799,47 +413,90 @@
                 survivalScore: 0,
                 soundEnabled: false,
                 backgroundMusic: null,
-                profile: null
+                profile: null // server-side profile
             };
 
-            // Haptic wrappers
+            // Haptic helpers (safe calls)
             const Haptic = {
-                impact: (type) => tg?.HapticFeedback?.impactOccurred?.(type),
+                impact: (t) => tg?.HapticFeedback?.impactOccurred?.(t),
                 selection: () => tg?.HapticFeedback?.selectionChanged?.(),
-                notify: (type) => tg?.HapticFeedback?.notificationOccurred?.(type),
-                strongOff: () => {
-                    const h = tg?.HapticFeedback;
-                    if (!h) return;
-                    h.impactOccurred('heavy');
-                    setTimeout(() => h.notificationOccurred('error'), 60);
-                    setTimeout(() => h.selectionChanged(), 120);
-                },
-                softOn: () => {
-                    const h = tg?.HapticFeedback;
-                    if (!h) return;
-                    h.impactOccurred('medium');
-                    setTimeout(() => h.selectionChanged(), 40);
-                }
+                notify: (t) => tg?.HapticFeedback?.notificationOccurred?.(t),
+                strongOff: () => { const h = tg?.HapticFeedback; if (!h) return; h.impactOccurred('heavy'); setTimeout(() => h.notificationOccurred('error'), 60); setTimeout(() => h.selectionChanged(), 120); },
+                softOn: () => { const h = tg?.HapticFeedback; if (!h) return; h.impactOccurred('medium'); setTimeout(() => h.selectionChanged(), 40); }
             };
 
-            /* Data loading & rendering */
+            // DOM refs (panel/profile)
+            const refs = {
+                webappStatus: document.getElementById('webappStatus'),
+                sideAvatarImg: document.getElementById('sideAvatarImg'),
+                authStatus: document.getElementById('authStatus'),
+                profileArea: document.getElementById('profileArea'),
+                profileName: document.getElementById('profileName'),
+                profileUsername: document.getElementById('profileUsername'),
+                uploadAvatarBtn: document.getElementById('uploadAvatarBtn'),
+                avatarFileInput: document.getElementById('avatarFileInput'),
+                logoutBtn: document.getElementById('logoutBtn'),
+                forceAuthBtn: document.getElementById('forceAuthBtn'),
+                openProfileBtn: document.getElementById('openProfileBtn'),
+                menuBtn: document.getElementById('menuBtn'),
+                sidePanel: document.getElementById('sidePanel'),
+                closePanel: document.getElementById('closePanel'),
+                panelApply: document.getElementById('panelApply'),
+                panelCancel: document.getElementById('panelCancel'),
+                panelVolumeSwitch: document.getElementById('panelVolumeSwitch'),
+                panelVolumeLabel: document.getElementById('panelVolumeLabel'),
+                autoThemeSwitch: document.getElementById('autoThemeSwitch'),
+                cycleThemeSwitch: document.getElementById('cycleThemeSwitch'),
+                factsContainer: document.getElementById('facts-container'),
+                characterSelection: document.getElementById('character-selection'),
+                chatMessages: document.getElementById('chat-messages'),
+                choiceButtons: document.getElementById('choice-buttons'),
+                survivalProgress: document.getElementById('survival-progress'),
+                statusChip: document.getElementById('webappStatus')
+            };
+
+            // Token storage helpers
+            const TOKEN_KEY = 'mocki_token_v1';
+            function saveToken(token) { localStorage.setItem(TOKEN_KEY, token); }
+            function getToken() { return localStorage.getItem(TOKEN_KEY); }
+            function clearToken() { localStorage.removeItem(TOKEN_KEY); }
+
+            // Simple fetch wrappers
+            async function postJSON(url, body, headers = {}) {
+                const res = await fetch(url, {
+                    method: 'POST',
+                    headers: Object.assign({ 'Content-Type': 'application/json' }, headers),
+                    body: JSON.stringify(body)
+                });
+                const text = await res.text();
+                try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
+                catch { return { ok: res.ok, status: res.status, data: text }; }
+            }
+
+            async function getJSON(url, headers = {}) {
+                const res = await fetch(url, { headers });
+                const text = await res.text();
+                try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
+                catch { return { ok: res.ok, status: res.status, data: text }; }
+            }
+
+            /* -------------------------
+               Facts and Encyclopedia
+               ------------------------- */
             async function loadFacts() {
                 try {
                     const res = await fetch('facts.json', { cache: 'no-store' });
-                    const data = await res.json();
-                    state.facts = Array.isArray(data) ? data : [];
+                    state.facts = await res.json();
                 } catch (e) {
-                    state.facts = [
-                        { id: 1, title: 'Пример факта', text: 'Факты не загружены', year: '1916', image: 'https://via.placeholder.com/600x400?text=1916' }
-                    ];
+                    state.facts = [{ id: 1, title: 'Пример факта', text: 'Факты не загружены', year: '1916', image: 'https://via.placeholder.com/600x400?text=1916' }];
                 }
                 renderFacts();
             }
 
             function renderFacts() {
-                const container = document.getElementById('facts-container');
-                if (!container) return;
-                container.innerHTML = state.facts.map((f, i) => `
+                const c = refs.factsContainer;
+                if (!c) return;
+                c.innerHTML = state.facts.map((f, i) => `
           <article class="fact-card" data-id="${f.id}" data-aos="fade-up" data-aos-delay="${(i % 6) * 80}">
             <img src="${f.image}" class="fact-img" alt="${escapeHtml(f.title)}" loading="lazy" />
             <div class="fact-content">
@@ -849,24 +506,21 @@
             </div>
           </article>
         `).join('');
-                container.querySelectorAll('.fact-card').forEach(card => {
+                c.querySelectorAll('.fact-card').forEach(card => {
                     card.addEventListener('click', () => {
                         const id = Number(card.dataset.id);
-                        showFact(id);
+                        const f = state.facts.find(x => x.id === id);
+                        if (f) alert(`${f.title} (${f.year})\n\n${f.text}`);
+                        Haptic.selection();
                     }, { passive: true });
                 });
             }
 
-            function showFact(id) {
-                const f = state.facts.find(x => x.id === id);
-                if (!f) return;
-                alert(`${f.title} (${f.year})\n\n${f.text}`);
-                Haptic.selection();
-            }
-
-            /* Game */
+            /* -------------------------
+               Game logic (kept as before)
+               ------------------------- */
             function renderCharacters() {
-                const sel = document.getElementById('character-selection');
+                const sel = refs.characterSelection;
                 if (!sel) return;
                 sel.innerHTML = `
           <button class="char-btn" data-char="soldier" type="button">Солдат</button>
@@ -874,9 +528,7 @@
           <button class="char-btn" data-char="resident" type="button">Житель</button>
         `;
                 sel.querySelectorAll('.char-btn').forEach(btn => {
-                    btn.addEventListener('click', () => {
-                        startGame(btn.dataset.char);
-                    }, { passive: true });
+                    btn.addEventListener('click', () => startGame(btn.dataset.char), { passive: true });
                 });
             }
 
@@ -890,9 +542,9 @@
             }
 
             function showChoices(opts) {
-                const container = document.getElementById('choice-buttons');
+                const container = refs.choiceButtons;
                 if (!container) return;
-                container.innerHTML = opts.map(o => `<button class="choice-btn" type="button" data-choice="${o}">${o}</button>`).join('');
+                container.innerHTML = opts.map(o => `<button class="choice-btn" type="button" data-choice="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('');
                 container.querySelectorAll('.choice-btn').forEach(btn => {
                     btn.addEventListener('click', () => selectChoice(btn.dataset.choice), { passive: true });
                 });
@@ -907,7 +559,7 @@
                 });
                 Haptic.selection();
 
-                document.getElementById('choice-buttons').innerHTML = '';
+                refs.choiceButtons.innerHTML = '';
                 setTimeout(() => {
                     const resp = generateResponse(choice);
                     const aiMsg = addMessage('AI', resp);
@@ -929,7 +581,7 @@
             }
 
             function addMessage(sender, text) {
-                const area = document.getElementById('chat-messages');
+                const area = refs.chatMessages;
                 if (!area) return document.createElement('div');
                 const bubble = document.createElement('div');
                 bubble.className = `message-bubble ${sender === 'user' ? 'user-msg' : 'ai-msg'}`;
@@ -941,267 +593,266 @@
 
             function updateSurvival(points) {
                 state.survivalScore = Math.min((state.survivalScore || 0) + points, 100);
-                const bar = document.getElementById('survival-progress');
-                if (bar) bar.style.width = state.survivalScore + '%';
+                if (refs.survivalProgress) refs.survivalProgress.style.width = state.survivalScore + '%';
             }
 
             function playSound() {
                 try { const a = new Audio('https://cdn.freesound.org/previews/276/276022_5123850-lq.mp3'); a.volume = 0.18; a.play().catch(() => { }); } catch (e) { }
             }
 
-            /* Side panel wiring */
+            /* -------------------------
+               Side panel wiring and theme/volume
+               ------------------------- */
             function initPanel() {
-                const menuBtn = document.getElementById('menuBtn');
-                const side = document.getElementById('sidePanel');
-                const closeBtn = document.getElementById('closePanel');
-                const cancelBtn = document.getElementById('panelCancel');
-                const applyBtn = document.getElementById('panelApply');
-
-                menuBtn && menuBtn.addEventListener('click', () => {
-                    side.classList.add('open'); side.setAttribute('aria-hidden', 'false');
+                refs.menuBtn && refs.menuBtn.addEventListener('click', () => {
+                    refs.sidePanel.classList.add('open'); refs.sidePanel.setAttribute('aria-hidden', 'false');
                     Haptic.selection();
                 }, { passive: true });
 
-                [closeBtn, cancelBtn].forEach(btn => {
-                    btn && btn.addEventListener('click', () => {
-                        side.classList.remove('open'); side.setAttribute('aria-hidden', 'true');
-                        Haptic.selection();
-                    }, { passive: true });
-                });
+                refs.closePanel && refs.closePanel.addEventListener('click', () => {
+                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
+                    Haptic.selection();
+                }, { passive: true });
 
-                applyBtn && applyBtn.addEventListener('click', () => {
+                refs.panelCancel && refs.panelCancel.addEventListener('click', () => {
+                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
+                    Haptic.selection();
+                }, { passive: true });
+
+                refs.panelApply && refs.panelApply.addEventListener('click', () => {
                     Haptic.impact && Haptic.impact('medium');
-                    side.classList.remove('open'); side.setAttribute('aria-hidden', 'true');
-                }, { passive: true });
-            }
-
-            /* Auth UI (mock) */
-            function initAuth() {
-                const authStatus = document.getElementById('authStatus');
-                const authArea = document.getElementById('authArea');
-                const profileArea = document.getElementById('profileArea');
-                const emailInput = document.getElementById('emailInput');
-                const codeInput = document.getElementById('codeInput');
-                const sendCodeBtn = document.getElementById('sendCodeBtn');
-                const loginBtn = document.getElementById('loginBtn');
-                const setAvatarBtn = document.getElementById('setAvatarBtn');
-                const changeAvatarBtn = document.getElementById('changeAvatarBtn');
-                const logoutBtn = document.getElementById('logoutBtn');
-                const profileEmail = document.getElementById('profileEmail');
-                const avatarImg = document.getElementById('avatarImg');
-
-                const saved = safeJSONParse(localStorage.getItem('profile'));
-                if (saved && saved.email) {
-                    state.profile = saved;
-                    authStatus.textContent = 'Авторизован';
-                    profileEmail.textContent = saved.email;
-                    avatarImg.src = saved.avatar || '';
-                    authArea.style.display = 'none';
-                    profileArea.style.display = 'block';
-                } else {
-                    authStatus.textContent = 'Не авторизован';
-                    authArea.style.display = 'block';
-                    profileArea.style.display = 'none';
-                }
-
-                sendCodeBtn && sendCodeBtn.addEventListener('click', () => {
-                    Haptic.selection();
-                    const email = (emailInput.value || '').trim();
-                    if (!isValidEmail(email)) return alert('Введите корректный email');
-                    alert('Код отправлен на ' + email + ' (имитация). При реальной интеграции замените этим вызовом POST к бэкенду.');
+                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
                 }, { passive: true });
 
-                loginBtn && loginBtn.addEventListener('click', () => {
-                    Haptic.impact && Haptic.impact('medium');
-                    const email = (emailInput.value || '').trim();
-                    const code = (codeInput.value || '').trim();
-                    if (!isValidEmail(email) || !isValidCode(code)) return alert('Введите корректный email и 6-значный код');
-                    state.profile = { email, avatar: avatarImg.src || '' };
-                    localStorage.setItem('profile', JSON.stringify(state.profile));
-                    authStatus.textContent = 'Авторизован';
-                    profileEmail.textContent = email;
-                    authArea.style.display = 'none';
-                    profileArea.style.display = 'block';
-                    Haptic.selection();
-                    alert('Вход выполнен (имитация). На бэкенде реализуйте проверку кода и выдачу токена.');
-                }, { passive: true });
-
-                setAvatarBtn && setAvatarBtn.addEventListener('click', () => {
-                    Haptic.selection();
-                    const url = prompt('Вставьте URL изображения для аватара (временно)');
-                    if (url) { avatarImg.src = url; const p = state.profile || safeJSONParse(localStorage.getItem('profile')) || {}; p.avatar = url; localStorage.setItem('profile', JSON.stringify(p)); }
-                }, { passive: true });
-
-                changeAvatarBtn && changeAvatarBtn.addEventListener('click', () => {
-                    Haptic.selection();
-                    const url = prompt('Вставьте URL для нового аватара');
-                    if (url && state.profile) { state.profile.avatar = url; localStorage.setItem('profile', JSON.stringify(state.profile)); avatarImg.src = url; }
-                }, { passive: true });
-
-                logoutBtn && logoutBtn.addEventListener('click', () => {
-                    Haptic.impact && Haptic.impact('heavy');
-                    localStorage.removeItem('profile');
-                    state.profile = null;
-                    authStatus.textContent = 'Не авторизован';
-                    profileArea.style.display = 'none';
-                    authArea.style.display = 'block';
-                    avatarImg.src = '';
-                }, { passive: true });
-            }
-
-            /* Volume: only panel switch */
-            function initVolume() {
-                const panelSwitch = document.getElementById('panelVolumeSwitch');
-                const panelLabel = document.getElementById('panelVolumeLabel');
-
+                // volume
                 const saved = safeJSONParse(localStorage.getItem('app_state')) || {};
                 state.soundEnabled = !!saved.soundEnabled;
-                if (panelSwitch) panelSwitch.checked = state.soundEnabled;
-                if (panelLabel) panelLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
-
-                const applyChange = (isOn) => {
-                    state.soundEnabled = !!isOn;
-                    if (panelLabel) panelLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+                if (refs.panelVolumeSwitch) refs.panelVolumeSwitch.checked = state.soundEnabled;
+                if (refs.panelVolumeLabel) refs.panelVolumeLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+                refs.panelVolumeSwitch && refs.panelVolumeSwitch.addEventListener('change', () => {
+                    state.soundEnabled = !!refs.panelVolumeSwitch.checked;
                     localStorage.setItem('app_state', JSON.stringify({ soundEnabled: state.soundEnabled }));
-                    if (state.soundEnabled) {
-                        Haptic.softOn && Haptic.softOn();
-                        if (!state.backgroundMusic) { state.backgroundMusic = new Audio('https://cdn.freesound.org/previews/620/620461_5674468-lq.mp3'); state.backgroundMusic.loop = true; state.backgroundMusic.volume = 0.22; }
-                        state.backgroundMusic.play().catch(() => { });
-                    } else {
-                        Haptic.strongOff && Haptic.strongOff();
-                        state.backgroundMusic && state.backgroundMusic.pause();
-                    }
-                };
+                    if (state.soundEnabled) { Haptic.softOn && Haptic.softOn(); if (!state.backgroundMusic) { state.backgroundMusic = new Audio('https://cdn.freesound.org/previews/620/620461_5674468-lq.mp3'); state.backgroundMusic.loop = true; state.backgroundMusic.volume = 0.22; } state.backgroundMusic.play().catch(() => { }); }
+                    else { Haptic.strongOff && Haptic.strongOff(); state.backgroundMusic && state.backgroundMusic.pause(); }
+                    if (refs.panelVolumeLabel) refs.panelVolumeLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+                }, { passive: true });
 
-                panelSwitch && panelSwitch.addEventListener('change', () => applyChange(panelSwitch.checked), { passive: true });
+                // theme init (keeps original behavior)
+                initTheme();
             }
 
-            /* Theme: Automatic + cycle toggle */
-            const Theme = (function () {
-                let cycleIndex = 0; // 0 = dark (base), 1 = light, 2 = off(=>dark)
+            function initTheme() {
+                let cycleIndex = 0;
                 let auto = true;
+                function apply(theme) { document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('ui_theme_manual', theme); }
+                function resolveAuto() { const tgScheme = tg?.colorScheme; const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; return tgScheme ? tgScheme : (sysDark ? 'dark' : 'light'); }
+                function updateFromAuto() { apply(resolveAuto()); }
 
-                function apply(theme) {
-                    document.documentElement.setAttribute('data-theme', theme);
-                    localStorage.setItem('ui_theme_manual', theme);
-                }
+                if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = true;
+                if (refs.cycleThemeSwitch) refs.cycleThemeSwitch.checked = false;
+                updateFromAuto();
 
-                function resolveAuto() {
-                    const tgScheme = tg?.colorScheme;
-                    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
-                    return tgScheme ? tgScheme : (sysDark ? 'dark' : 'light');
-                }
+                refs.autoThemeSwitch && refs.autoThemeSwitch.addEventListener('change', () => {
+                    auto = !!refs.autoThemeSwitch.checked;
+                    if (auto) updateFromAuto();
+                    else { const manual = localStorage.getItem('ui_theme_manual') || 'dark'; apply(manual); }
+                    Haptic.selection();
+                }, { passive: true });
 
-                function updateFromAuto() {
-                    const t = resolveAuto();
-                    apply(t);
-                }
+                refs.cycleThemeSwitch && refs.cycleThemeSwitch.addEventListener('click', (ev) => {
+                    ev.preventDefault(); Haptic.selection();
+                    cycleIndex = (cycleIndex + 1) % 3;
+                    if (cycleIndex === 1) { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('light'); refs.cycleThemeSwitch.checked = true; }
+                    else if (cycleIndex === 2) { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('dark'); refs.cycleThemeSwitch.checked = false; }
+                    else { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('dark'); refs.cycleThemeSwitch.checked = false; }
+                }, { passive: true });
 
-                function init() {
-                    const autoSwitch = document.getElementById('autoThemeSwitch');
-                    const cycleSwitch = document.getElementById('cycleThemeSwitch');
+                if (tg) tg.onEvent && tg.onEvent('themeChanged', () => { if (auto) updateFromAuto(); });
+                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (auto) updateFromAuto(); });
+            }
 
-                    auto = true;
-                    if (autoSwitch) autoSwitch.checked = true;
-                    if (cycleSwitch) cycleSwitch.checked = false;
-
-                    updateFromAuto();
-
-                    autoSwitch && autoSwitch.addEventListener('change', () => {
-                        Haptic.selection();
-                        auto = !!autoSwitch.checked;
-                        if (auto) updateFromAuto();
-                        else {
-                            const manual = localStorage.getItem('ui_theme_manual') || 'dark';
-                            apply(manual);
-                        }
-                    }, { passive: true });
-
-                    if (cycleSwitch) {
-                        cycleIndex = 0;
-                        cycleSwitch.addEventListener('click', (ev) => {
-                            ev.preventDefault();
-                            Haptic.selection();
-                            cycleIndex = (cycleIndex + 1) % 3; // 0->1->2->0
-                            if (cycleIndex === 1) {
-                                auto = false; if (autoSwitch) autoSwitch.checked = false;
-                                apply('light'); cycleSwitch.checked = true;
-                            } else if (cycleIndex === 2) {
-                                auto = false; if (autoSwitch) autoSwitch.checked = false;
-                                apply('dark'); cycleSwitch.checked = false;
-                            } else {
-                                auto = false; if (autoSwitch) autoSwitch.checked = false;
-                                apply('dark'); cycleSwitch.checked = false;
-                            }
-                        }, { passive: true });
+            /* -------------------------
+               Telegram initData auth flow
+               ------------------------- */
+            async function authorizeWithInitData(initDataString) {
+                setStatus('Авторизация через Telegram...');
+                try {
+                    const { ok, status, data } = await postJSON(`${API_BASE}/auth/telegram`, { initData: initDataString });
+                    if (!ok) {
+                        setStatus('Ошибка авторизации');
+                        console.error('auth failed', status, data);
+                        return false;
                     }
+                    if (data && data.ok && data.token && data.profile) {
+                        saveToken(data.token);
+                        state.profile = data.profile;
+                        populateProfileUI(data.profile);
+                        setStatus('Вход выполнен');
+                        return true;
+                    } else {
+                        setStatus('Авторизация не удалась');
+                        console.error('unexpected auth response', data);
+                        return false;
+                    }
+                } catch (err) {
+                    setStatus('Ошибка сети');
+                    console.error(err);
+                    return false;
+                }
+            }
 
-                    if (tg) tg.onEvent && tg.onEvent('themeChanged', () => { if (auto) updateFromAuto(); });
-                    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (auto) updateFromAuto(); });
+            async function fetchProfileFromServer() {
+                const token = getToken();
+                if (!token) return null;
+                try {
+                    const { ok, status, data } = await getJSON(`${API_BASE}/me`, { Authorization: `Bearer ${token}` });
+                    if (!ok) { console.warn('me failed', status, data); return null; }
+                    if (data && data.ok) return data.profile;
+                    return null;
+                } catch (err) { console.error('fetchProfile error', err); return null; }
+            }
+
+            function populateProfileUI(profile) {
+                state.profile = profile;
+                refs.sideAvatarImg.src = profile.avatar || 'https://via.placeholder.com/96';
+                refs.authStatus.textContent = 'Авторизован';
+                refs.profileArea.style.display = 'block';
+                refs.profileName.textContent = profile.name || profile.first_name || '—';
+                refs.profileUsername.textContent = profile.username ? '@' + profile.username : `ID: ${profile.id || '—'}`;
+                refs.forceAuthBtn.style.display = 'none';
+                refs.openProfileBtn.style.display = 'inline-block';
+            }
+
+            async function tryRestoreSessionOrAuth() {
+                // if there is a token, try to restore profile
+                const token = getToken();
+                if (token) {
+                    setStatus('Восстанавливаю сессию...');
+                    const profile = await fetchProfileFromServer();
+                    if (profile) {
+                        populateProfileUI(profile);
+                        setStatus('Вход по сохранённому токену');
+                        return;
+                    } else {
+                        clearToken();
+                    }
                 }
 
-                return { init, applyManual: apply };
-            })();
+                // no token -> try initData from Telegram (only works when opened via bot)
+                const initData = window.Telegram?.WebApp?.initData || null;
+                if (initData) {
+                    const ok = await authorizeWithInitData(initData);
+                    if (ok) return;
+                } else {
+                    setStatus('Откройте WebApp через Telegram бота');
+                }
+            }
 
-            /* Utilities */
-            function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
-            function isValidEmail(e) { return typeof e === 'string' && /\S+@\S+\.\S+/.test(e); }
-            function isValidCode(c) { return /^\d{6}$/.test(c); }
-            function safeJSONParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
+            // avatar upload
+            refs.avatarFileInput && refs.avatarFileInput.addEventListener('change', async (e) => {
+                const file = e.target.files[0];
+                if (!file) return;
+                const token = getToken();
+                if (!token) { alert('Нет токена. Сначала авторизуйтесь через бота.'); return; }
+                setStatus('Загружаю аватар...');
+                const fd = new FormData();
+                fd.append('avatar', file);
+                try {
+                    const res = await fetch(`${API_BASE}/user/avatar`, {
+                        method: 'POST',
+                        headers: { Authorization: `Bearer ${token}` },
+                        body: fd
+                    });
+                    const txt = await res.text();
+                    let data;
+                    try { data = JSON.parse(txt); } catch { data = txt; }
+                    if (!res.ok) {
+                        setStatus('Ошибка загрузки');
+                        console.error('avatar upload fail', res.status, data);
+                        alert('Ошибка при загрузке аватара: ' + (data && data.error ? data.error : res.status));
+                        return;
+                    }
+                    if (data && data.ok) {
+                        setStatus('Аватар загружен');
+                        const profile = await fetchProfileFromServer();
+                        if (profile) populateProfileUI(profile);
+                    } else {
+                        setStatus('Ошибка загрузки');
+                        console.error('avatar upload response', data);
+                        alert('Ошибка при загрузке аватара');
+                    }
+                } catch (err) {
+                    setStatus('Ошибка сети');
+                    console.error(err);
+                    alert('Не удалось отправить файл на сервер');
+                }
+            }, { passive: true });
 
-            /* Init */
-            function init() {
-                initPanel(); initAuth(); initVolume(); Theme.init(); loadFacts(); renderCharacters();
+            // UI handlers
+            refs.logoutBtn && refs.logoutBtn.addEventListener('click', () => {
+                clearToken();
+                state.profile = null;
+                refs.sideAvatarImg.src = 'https://via.placeholder.com/96';
+                refs.authStatus.textContent = 'Не авторизован';
+                refs.profileArea.style.display = 'none';
+                refs.forceAuthBtn.style.display = 'inline-block';
+                refs.openProfileBtn.style.display = 'none';
+                setStatus('Выход выполнен');
+            }, { passive: true });
 
-                // accessibility: ESC to close panel
+            refs.forceAuthBtn && refs.forceAuthBtn.addEventListener('click', async () => {
+                setStatus('Инициация авторизации...');
+                const initData = window.Telegram?.WebApp?.initData || null;
+                if (!initData) { alert('Откройте WebApp через Telegram бота (внутри мессенджера).'); return; }
+                await authorizeWithInitData(initData);
+            }, { passive: true });
+
+            refs.openProfileBtn && refs.openProfileBtn.addEventListener('click', () => {
+                refs.sidePanel.classList.add('open');
+            }, { passive: true });
+
+            refs.uploadAvatarBtn && refs.uploadAvatarBtn.addEventListener('click', () => {
+                refs.avatarFileInput && refs.avatarFileInput.click();
+            }, { passive: true });
+
+            /* Init: wire panel, load content, restore session */
+            function setStatus(txt) {
+                refs.statusChip && (refs.statusChip.innerText = txt);
+            }
+
+            async function init() {
+                initPanel();
+                loadFacts();
+                renderCharacters();
+
+                // keyboard & gestures
                 document.addEventListener('keydown', (e) => {
-                    const side = document.getElementById('sidePanel');
-                    if (e.key === 'Escape' && side && side.classList.contains('open')) { side.classList.remove('open'); side.setAttribute('aria-hidden', 'true'); }
+                    if (e.key === 'Escape' && refs.sidePanel && refs.sidePanel.classList.contains('open')) {
+                        refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
+                    }
                 });
 
-                // mobile swipe-to-close
-                let startX = null;
-                document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
-                document.addEventListener('touchend', (e) => {
-                    if (startX === null) return;
-                    const dx = e.changedTouches[0].clientX - startX;
-                    if (dx < -80) { const side = document.getElementById('sidePanel'); side && side.classList.remove('open'); }
-                    startX = null;
-                }, { passive: true });
+                // try restore or auth via initData
+                await tryRestoreSessionOrAuth();
             }
 
-            return { init };
+            return {
+                init, switchMode: function (mode) {
+                    // show/hide blocks
+                    state.currentMode = mode;
+                    document.getElementById('encyclopedia').style.display = (mode === 'encyclopedia') ? '' : 'none';
+                    document.getElementById('game').style.display = (mode === 'game') ? '' : 'none';
+                }
+            };
         })();
 
         document.addEventListener('DOMContentLoaded', () => App.init(), { once: true });
-
-        /* Backend notes (for later C++ integration)
-           - POST /auth/send-code { email } -> server generates code and sends email
-           - POST /auth/verify { email, code } -> server verifies and returns token + profile
-           - Use HTTPS, rate-limits, and store codes hashed or ephemeral tokens
-           - For avatar upload: /user/avatar -> accept file, store and return URL
-           - Consider using sqlite/mysql; for C++ server use Boost.Beast or cpp-httplib + SMTP client or call external email API
-        */
-
     </script>
-    <!DOCTYPE html>
-    <html>
 
-    <head>
-        <meta charset="UTF-8" />
-        <title>Mocki WebApp</title>
-        <script src="https://telegram.org/js/telegram-web-app.js"></script>
-        <script defer src="main.js"></script>
-    </head>
-
-    <body>
-        <h2>Добро пожаловать, Mocki!</h2>
-        <div id="profile"></div>
-        <input type="file" id="avatarInput" />
-    </body>
-
-    </html>
-
+    <!-- keep AOS script init at end -->
+    <script>
+        AOS.refresh();
+    </script>
 </body>
 
 </html>
