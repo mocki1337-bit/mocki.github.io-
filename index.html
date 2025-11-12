@@ -3,89 +3,41 @@
 
 <head>
     <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
     <meta name="theme-color" content="#0a0503" />
     <title>Сморгонь 1916 — WebApp</title>
 
-    <!-- Шрифт -->
+    <!-- Fonts & AOS -->
     <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet" />
-    <!-- AOS -->
     <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
+    <!-- Telegram SDK (loaded in body too for safety) -->
     <style>
-        /* ============================
-       THEME & DESIGN VARIABLES
-       ============================ */
+        /* ======================================================
+       PROFESSIONAL STYLES — rich, animated, polished UI
+       All original sections preserved and enhanced
+       ====================================================== */
+
         :root {
-            --radius-xl: 24px;
-            --radius-lg: 14px;
-            --pad-xl: 28px;
-            --pad-lg: 18px;
-            --transition: all 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
-
             --bg-img: url('https://images.unsplash.com/photo-1605812830455-3f8d943c77b9?auto=format&fit=crop&q=60&w=1600&h=900&crop=entropy');
-            --text: #f0e6d2;
-            --muted: rgba(240, 230, 210, 0.78);
-            --gold: #d4a574;
+            --bg-grad: linear-gradient(135deg, rgba(10, 5, 3, 0.96), rgba(28, 15, 8, 0.88));
+            --glass: rgba(255, 255, 255, 0.06);
+            --glass-2: rgba(255, 255, 255, 0.09);
+            --glass-border: rgba(255, 255, 255, 0.12);
             --accent: #8B4513;
-
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.22);
-            --glass-blur: blur(22px);
-            --glass-shadow: 0 14px 42px rgba(0, 0, 0, 0.48);
-
-            --switch-track: rgba(255, 255, 255, 0.155);
-            --switch-border: rgba(255, 255, 255, 0.22);
-            --switch-on: rgba(52, 199, 89, 0.40);
-            --switch-on-border: rgba(52, 199, 89, 0.58);
-            --panel-bg: rgba(0, 0, 0, 0.24);
-
-            --max-panel-width: min(70vw, 420px);
-        }
-
-        html[data-theme="dark"] {
-            --text: #f0e6d2;
-            --muted: rgba(240, 230, 210, 0.78);
             --gold: #d4a574;
-            --glass: rgba(255, 255, 255, 0.12);
-            --glass-border: rgba(255, 255, 255, 0.22);
-            --panel-bg: rgba(0, 0, 0, 0.24);
-            --switch-track: rgba(255, 255, 255, 0.155);
-            --switch-border: rgba(255, 255, 255, 0.22);
+            --muted: rgba(240, 230, 210, 0.78);
+            --text: #f0e6d2;
+            --panel-bg: rgba(0, 0, 0, 0.28);
+            --card-radius: 18px;
+            --shadow-lg: 0 20px 50px rgba(0, 0, 0, 0.55);
+            --smooth: cubic-bezier(.2, .9, .3, 1);
+            --max-width: 1120px;
+            --glass-blur: blur(18px);
         }
 
-        html[data-theme="light"] {
-            --text: #1b1e23;
-            --muted: rgba(27, 30, 35, 0.72);
-            --gold: #af7f4f;
-            --glass: rgba(255, 255, 255, 0.55);
-            --glass-border: rgba(255, 255, 255, 0.85);
-            --panel-bg: rgba(255, 255, 255, 0.7);
-            --switch-track: rgba(0, 0, 0, 0.08);
-            --switch-border: rgba(0, 0, 0, 0.14);
-        }
-
-        @media (prefers-color-scheme: light) {
-            html:not([data-theme]) {
-                color-scheme: light;
-            }
-        }
-
-        @media (prefers-color-scheme: dark) {
-            html:not([data-theme]) {
-                color-scheme: dark;
-            }
-        }
-
-        /* ============================
-       BASE
-       ============================ */
         * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            -webkit-font-smoothing: antialiased;
-            -webkit-tap-highlight-color: transparent
+            box-sizing: border-box
         }
 
         html,
@@ -94,431 +46,796 @@
         }
 
         body {
-            font-family: 'SF Pro Display', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
-            background: linear-gradient(135deg, rgba(10, 5, 3, 0.96), rgba(28, 15, 8, 0.88)), var(--bg-img) center/cover no-repeat fixed;
+            margin: 0;
+            font-family: "SF Pro Display", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: var(--bg-grad), var(--bg-img) center/cover no-repeat fixed;
             color: var(--text);
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
-            min-height: 100vh;
-            overflow-x: hidden;
             -webkit-overflow-scrolling: touch;
+            overflow-x: hidden;
         }
 
-        .container {
-            max-width: 1120px;
-            margin: 0 auto;
-            padding: 26px 22px;
-            contain: content
+        .wrap {
+            max-width: var(--max-width);
+            margin: 20px auto;
+            padding: 24px;
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 22px;
         }
 
-        /* GLASS */
-        .glass {
-            background: var(--glass);
-            border-radius: var(--radius-xl);
-            border: 1px solid var(--glass-border);
-            backdrop-filter: var(--glass-blur);
-            -webkit-backdrop-filter: var(--glass-blur);
-            box-shadow: var(--glass-shadow);
-            padding: var(--pad-xl);
-            transition: var(--transition);
-            will-change: transform, box-shadow;
+        /* Responsive: single-column on small screens */
+        @media (max-width:980px) {
+            .wrap {
+                grid-template-columns: 1fr;
+                padding: 18px;
+            }
+
+            .side {
+                order: -1;
+            }
         }
 
-        .glass:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 18px 52px rgba(0, 0, 0, 0.58)
+        /* Left column (main) */
+        .main {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
         }
 
-        /* HEADER */
+        /* Header */
         .header {
-            text-align: center;
-            padding: 40px 0 20px
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 12px;
         }
 
-        .header h1 {
-            font-size: clamp(2.2rem, 4.2vw, 3.6rem);
-            font-weight: 800;
+        .title-wrap {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .title {
+            font-weight: 900;
+            font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+            line-height: 1;
             background: linear-gradient(90deg, var(--gold), #f0d9b5);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 22px rgba(0, 0, 0, 0.35);
+            text-shadow: 0 6px 24px rgba(0, 0, 0, 0.45);
+        }
+
+        .subtitle {
+            font-style: italic;
+            color: var(--muted);
+            margin-top: 6px;
+            font-size: 0.98rem;
+        }
+
+        /* Status chip */
+        .status-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 10px 14px;
+            border-radius: 999px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 0.95rem;
+            box-shadow: 0 6px 18px rgba(0, 0, 0, 0.38);
+            backdrop-filter: var(--glass-blur);
+        }
+
+        /* Modes cards */
+        .modes {
+            display: flex;
+            gap: 18px;
+            flex-wrap: wrap;
+        }
+
+        .mode-card {
+            flex: 1;
+            min-width: 240px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform .36s var(--smooth), box-shadow .36s var(--smooth);
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.45);
+            will-change: transform;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.55);
+        }
+
+        .mode-icon {
+            font-size: 2.4rem;
             margin-bottom: 10px;
         }
 
-        .header p {
-            font-size: clamp(1rem, 1.8vw, 1.12rem);
-            font-style: italic;
+        .mode-card h3 {
+            color: var(--gold);
+            margin-bottom: 8px;
+            font-size: 1.08rem;
+            font-weight: 800;
+        }
+
+        .mode-card p {
             color: var(--muted);
-            letter-spacing: -0.35px
+            font-size: 0.96rem;
         }
 
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 18px;
+        /* Panels */
+        .glass-panel {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border-radius: var(--card-radius);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            padding: 18px;
+            box-shadow: var(--shadow-lg);
+            backdrop-filter: var(--glass-blur);
         }
 
-        .status-chip {
-            font-size: 13px;
-            color: var(--muted);
-            padding: 8px 12px;
-            border-radius: 12px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid var(--glass-border);
-        }
-
-        /* existing styles preserved (fact-grid, game, etc.) - unchanged */
-
-        /* minimal controls for profile in side panel adjustments */
-        .avatar {
-            width: 48px;
-            height: 48px;
-            border-radius: 50%;
-            background: rgba(255, 255, 255, 0.18);
-            border: 1px solid var(--glass-border);
-            overflow: hidden;
+        /* Fact grid */
+        .fact-grid {
             display: grid;
-            place-items: center
+            grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+            gap: 16px;
+            margin-top: 6px;
+        }
+
+        .fact-card {
+            border-radius: 14px;
+            overflow: hidden;
+            transform-origin: center center;
+            transition: transform .32s var(--smooth), box-shadow .32s var(--smooth);
+            cursor: pointer;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+        }
+
+        .fact-card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 32px 70px rgba(0, 0, 0, 0.6);
+        }
+
+        .fact-img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            filter: sepia(.14) brightness(.95);
+            transition: filter .28s;
+        }
+
+        .fact-card:hover .fact-img {
+            filter: sepia(.06) brightness(1.06);
+            transform: scale(1.02);
+        }
+
+        .fact-content {
+            padding: 14px;
+            position: relative;
+        }
+
+        .fact-year {
+            position: absolute;
+            right: 12px;
+            top: 12px;
+            background: var(--accent);
+            padding: 6px 10px;
+            color: #fff;
+            border-radius: 18px;
+            font-weight: 800;
+            font-size: 0.86rem;
+        }
+
+        .fact-title {
+            color: var(--gold);
+            font-weight: 800;
+            font-size: 1rem;
+            margin-bottom: 8px;
+        }
+
+        .fact-text {
+            color: var(--muted);
+            line-height: 1.45;
+            font-size: 0.95rem;
+        }
+
+        /* Game area */
+        .game-wrap {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .character-grid {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            justify-content: center;
+            margin-bottom: 8px;
+        }
+
+        .char-btn {
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(255, 255, 255, 0.02));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            color: var(--text);
+            padding: 10px 14px;
+            border-radius: 12px;
+            font-weight: 800;
+            cursor: pointer;
+            transition: transform .24s var(--smooth), box-shadow .24s var(--smooth);
+        }
+
+        .char-btn:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 18px 38px rgba(0, 0, 0, 0.44);
+        }
+
+        .chat-area {
+            max-height: 420px;
+            overflow: auto;
+            padding: 12px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.12));
+            border: 1px solid rgba(255, 255, 255, 0.03);
+        }
+
+        .message-bubble {
+            max-width: 78%;
+            margin: 12px 0;
+            padding: 12px 14px;
+            border-radius: 16px;
+            line-height: 1.4;
+            font-weight: 600;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.36);
+            animation: msgPop .36s var(--smooth);
+        }
+
+        .ai-msg {
+            background: linear-gradient(180deg, rgba(20, 16, 12, 0.7), rgba(36, 24, 16, 0.6));
+            color: var(--text);
+            margin-right: auto;
+            border-bottom-left-radius: 6px;
+        }
+
+        .user-msg {
+            background: linear-gradient(180deg, rgba(80, 54, 38, 0.78), rgba(64, 44, 32, 0.78));
+            color: var(--text);
+            margin-left: auto;
+            border-bottom-right-radius: 6px;
+        }
+
+        @keyframes msgPop {
+            from {
+                transform: translateY(6px) scale(.98);
+                opacity: 0
+            }
+
+            to {
+                transform: none;
+                opacity: 1
+            }
+        }
+
+        .choice-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 8px;
+            justify-content: center;
+        }
+
+        .choice-btn {
+            background: linear-gradient(90deg, #8B4513, #d4a574);
+            padding: 10px 14px;
+            color: #fff;
+            border-radius: 12px;
+            font-weight: 800;
+            border: none;
+            cursor: pointer;
+            box-shadow: 0 12px 28px rgba(139, 69, 19, 0.18);
+        }
+
+        .progress-container {
+            height: 12px;
+            background: rgba(255, 255, 255, 0.04);
+            border-radius: 8px;
+            overflow: hidden;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #8B4513, #d4a574);
+            transition: width .9s ease;
+        }
+
+        /* Side column */
+        .side {
+            display: flex;
+            flex-direction: column;
+            gap: 18px;
+            position: relative;
+        }
+
+        .profile-card {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            padding: 16px;
+            border-radius: 16px;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.02), rgba(255, 255, 255, 0.01));
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.48);
+        }
+
+        .avatar {
+            width: 72px;
+            height: 72px;
+            border-radius: 14px;
+            overflow: hidden;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            display: grid;
+            place-items: center;
         }
 
         .avatar img {
             width: 100%;
             height: 100%;
-            object-fit: cover
+            object-fit: cover;
+            display: block;
         }
 
+        .profile-info {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .profile-name {
+            font-weight: 900;
+            font-size: 1.03rem;
+            color: var(--gold);
+        }
+
+        .profile-meta {
+            color: var(--muted);
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .small-muted {
+            font-size: 0.86rem;
+            color: var(--muted);
+        }
+
+        /* Buttons */
         .btn {
-            appearance: none;
+            padding: 10px 14px;
+            border-radius: 12px;
             border: none;
             cursor: pointer;
-            border-radius: 12px;
-            padding: 12px 14px;
-            font-weight: 700;
+            font-weight: 800;
             color: #fff;
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), linear-gradient(180deg, #af7f4f, #8B4513);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 20px rgba(0, 0, 0, 0.25)
+            background: linear-gradient(180deg, #8B4513, #6f3f18);
+            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.45);
         }
 
         .btn.secondary {
-            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
-            color: var(--text);
-            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 8px 16px rgba(0, 0, 0, 0.12)
+            background: linear-gradient(180deg, #f7f5ee, #e0cfa8);
+            color: #2b2319;
+            box-shadow: none;
+            border: 1px solid rgba(0, 0, 0, 0.06);
+            font-weight: 700;
         }
 
+        .btn.ghost {
+            background: transparent;
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            color: var(--text);
+            font-weight: 700;
+        }
+
+        .muted-note {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 8px;
+        }
+
+        /* Side panel overlay (for mobile) */
+        .panel-toggle {
+            position: fixed;
+            left: 16px;
+            bottom: 16px;
+            z-index: 40;
+            display: none;
+        }
+
+        @media (max-width:980px) {
+            .panel-toggle {
+                display: block;
+            }
+        }
+
+        /* footer small */
+        .foot {
+            text-align: center;
+            color: var(--muted);
+            font-size: 0.9rem;
+            padding: 8px 0;
+        }
+
+        /* subtle floating animations */
+        .float {
+            transform-origin: center center;
+            animation: floaty 6s var(--smooth) infinite;
+        }
+
+        @keyframes floaty {
+            0% {
+                transform: translateY(0px)
+            }
+
+            50% {
+                transform: translateY(-6px)
+            }
+
+            100% {
+                transform: translateY(0px)
+            }
+        }
+
+        /* small helper */
         .hidden {
             display: none !important;
         }
 
-        /* small responsive tweak */
-        @media (max-width: 768px) {
-            .container {
-                padding: 18px;
-            }
+        input[type="file"] {
+            display: none;
         }
     </style>
 </head>
 
 <body>
-    <div class="container">
-        <!-- TOP BAR -->
-        <div class="topbar">
-            <div style="font-weight:700; color:var(--gold)">Сморгонь 1916</div>
-            <div id="webappStatus" class="status-chip">Инициализация...</div>
-        </div>
-
-        <!-- HEADER -->
-        <header class="header" data-aos="fade-down" data-aos-duration="1000">
-            <h1>СМОРГОНЬ 1916</h1>
-            <p>Хроники Первой мировой войны</p>
-        </header>
-
-        <!-- MODES -->
-        <section class="modes" data-aos="fade-up" data-aos-delay="300">
-            <div class="mode-card" onclick="App.switchMode('encyclopedia')">
-                <div class="mode-icon">📖</div>
-                <h3>Узнать правду</h3>
-                <p>Факты, фото, видео</p>
-            </div>
-            <div class="mode-card" onclick="App.switchMode('game')">
-                <div class="mode-icon">🎮</div>
-                <h3>Выжить в аду</h3>
-                <p>Интерактивная история</p>
-            </div>
-        </section>
-
-        <!-- ENCYCLOPEDIA -->
-        <section id="encyclopedia" class="glass" style="display:none;" aria-hidden="true">
-            <h2 class="section-title">Исторические факты</h2>
-            <div class="fact-grid" id="facts-container"></div>
-        </section>
-
-        <!-- GAME -->
-        <section id="game" class="glass" style="display:none;" aria-hidden="true">
-            <h2 class="section-title">Выбери персонажа</h2>
-            <div class="character-grid" id="character-selection"></div>
-
-            <div id="gameplay-area" style="display:none;">
-                <div class="chat-area" id="chat-messages" aria-live="polite"></div>
-
-                <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100"
-                    aria-valuenow="0">
-                    <div class="progress-bar" id="survival-progress"></div>
+    <div class="wrap" role="main">
+        <main class="main">
+            <!-- header -->
+            <div class="header" data-aos="fade-down" data-aos-duration="900">
+                <div class="title-wrap">
+                    <div class="title">СМОРГОНЬ 1916</div>
+                    <div class="subtitle">Хроники Первой мировой войны — интерактив и справочник</div>
                 </div>
 
-                <div class="choice-container" id="choice-buttons"></div>
+                <div class="status-chip" id="webappStatus" aria-live="polite">Инициализация...</div>
             </div>
-        </section>
+
+            <!-- modes -->
+            <section class="modes" data-aos="fade-up" data-aos-delay="200">
+                <div class="mode-card float" onclick="App.switchMode('encyclopedia')" role="button"
+                    aria-label="Открыть энциклопедию">
+                    <div class="mode-icon">📖</div>
+                    <h3>Узнать правду</h3>
+                    <p>Факты, фото, редкие документы и справочная информация</p>
+                </div>
+
+                <div class="mode-card float" onclick="App.switchMode('game')" role="button" aria-label="Открыть игру">
+                    <div class="mode-icon">🎮</div>
+                    <h3>Выжить в аду</h3>
+                    <p>Интерактивные выборы и сценарии 1916 года</p>
+                </div>
+            </section>
+
+            <!-- encyclopedia -->
+            <section id="encyclopedia" class="glass-panel" style="display:none;" aria-hidden="true" data-aos="fade-up"
+                data-aos-duration="900">
+                <h2 class="section-title">Исторические факты</h2>
+                <div class="small-muted">Нажми на карточку, чтобы увидеть подробности</div>
+                <div class="fact-grid" id="facts-container" aria-live="polite"></div>
+            </section>
+
+            <!-- game -->
+            <section id="game" class="glass-panel" style="display:none;" aria-hidden="true" data-aos="fade-up"
+                data-aos-duration="900">
+                <h2 class="section-title">Выбери персонажа</h2>
+                <div class="character-grid" id="character-selection"></div>
+
+                <div id="gameplay-area" style="display:none;">
+                    <div class="chat-area" id="chat-messages" aria-live="polite"></div>
+
+                    <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                        aria-valuenow="0" style="margin-top:8px;">
+                        <div class="progress-bar" id="survival-progress"></div>
+                    </div>
+
+                    <div class="choice-container" id="choice-buttons" aria-hidden="false" style="margin-top:12px;">
+                    </div>
+                </div>
+            </section>
+
+            <div class="foot">Откройте WebApp через бота в Telegram для авторизации и персональных настроек</div>
+        </main>
+
+        <!-- side -->
+        <aside class="side" aria-label="Панель настроек">
+            <!-- profile -->
+            <div class="profile-card" data-aos="fade-left">
+                <div class="avatar">
+                    <img id="sideAvatar" src="https://via.placeholder.com/160" alt="Аватар" />
+                </div>
+                <div style="flex:1;">
+                    <div style="display:flex; align-items:center; justify-content:space-between; gap:8px;">
+                        <div>
+                            <div class="profile-name" id="profileName">Гость</div>
+                            <div class="profile-meta" id="profileMeta">Не авторизован</div>
+                        </div>
+                        <div style="display:flex; flex-direction:column; gap:8px; align-items:flex-end;">
+                            <button class="btn secondary" id="openPanelBtn" title="Настройки">Настройки</button>
+                            <div style="height:6px"></div>
+                            <button class="btn ghost" id="helpBtn" title="Помощь">?</button>
+                        </div>
+                    </div>
+
+                    <div style="margin-top:12px;">
+                        <div class="small-muted">Авторизация:</div>
+                        <div style="display:flex; gap:8px; margin-top:8px;">
+                            <button class="btn" id="authNowBtn">Авторизоваться</button>
+                            <button class="btn secondary" id="clearSessionBtn">Сброс</button>
+                        </div>
+                        <div class="muted-note" style="margin-top:8px;">Авторизация происходит через Telegram initData —
+                            откройте WebApp внутри бота.</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- quick actions -->
+            <div class="glass-panel" data-aos="fade-left" data-aos-delay="80">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:12px;">
+                    <div style="font-weight:800; color:var(--gold)">Быстрые действия</div>
+                    <div class="small-muted">v1</div>
+                </div>
+
+                <div style="display:flex; gap:8px; flex-wrap:wrap;">
+                    <button class="btn" id="openEncyBtn">Факты</button>
+                    <button class="btn" id="openGameBtn">Игра</button>
+                    <label class="btn secondary" id="uploadAvatarLabel">
+                        <input id="uploadFile" type="file" accept="image/*" />
+                        Загрузить аватар
+                    </label>
+                    <button class="btn ghost" id="debugBtn">Отладка</button>
+                </div>
+
+                <div style="margin-top:12px;" class="small-muted">Загрузки проходят на бекенд, профиль обновляется
+                    автоматически.</div>
+            </div>
+
+            <!-- settings -->
+            <div class="glass-panel" data-aos="fade-left" data-aos-delay="160">
+                <div style="display:flex; justify-content:space-between; align-items:center;">
+                    <div style="font-weight:800; color:var(--gold)">Тема и звук</div>
+                </div>
+
+                <div style="margin-top:12px; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="small-muted">Автоматическая тема</div>
+                        <label class="btn secondary" style="padding:6px 10px;"><input type="checkbox" id="autoTheme" />
+                            Авто</label>
+                    </div>
+
+                    <div style="display:flex; justify-content:space-between; align-items:center;">
+                        <div class="small-muted">Фоновая музыка</div>
+                        <label class="btn secondary" style="padding:6px 10px;"><input type="checkbox" id="bgMusic" />
+                            Вкл</label>
+                    </div>
+
+                    <div class="muted-note">Тут можно быстро управлять визуалом и звуком</div>
+                </div>
+            </div>
+        </aside>
     </div>
 
-    <!-- MENU BUTTON -->
-    <button class="menu-button" id="menuBtn" aria-label="Открыть меню">
-        <div class="menu-icon"><span></span></div>
-    </button>
+    <!-- panel overlay for mobile -->
+    <button class="panel-toggle btn secondary" id="mobilePanelToggle" aria-hidden="true"
+        style="display:none; position:fixed; left:16px; bottom:16px; z-index:60;">Меню</button>
 
-    <!-- SIDE PANEL -->
-    <aside class="side-panel" id="sidePanel" aria-hidden="true">
-        <div class="side-header">
-            <div class="side-title">Настройки и профиль</div>
-            <button class="btn secondary" id="closePanel" type="button" aria-label="Закрыть панель">Закрыть</button>
+    <!-- SIDE PANEL (full) -->
+    <div id="sidePanelFull" class="side-panel glass-panel hidden"
+        style="position:fixed; right:20px; top:20px; width:min(420px,92vw); z-index:80;">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:10px;">
+            <div style="font-weight:900; color:var(--gold)">Профиль и настройки</div>
+            <div>
+                <button class="btn ghost" id="closeSideFull">Закрыть</button>
+            </div>
         </div>
 
-        <div class="side-content">
-            <!-- PROFILE -->
-            <section style="margin-bottom:16px;">
-                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Профиль</h3>
-
-                <div class="avatar-block">
-                    <div class="avatar"><img id="sideAvatarImg" alt="avatar preview"
-                            src="https://via.placeholder.com/96" /></div>
-                    <div>
-                        <div class="label">Статус</div>
-                        <div id="authStatus" style="font-weight:700;">Не авторизован</div>
-                    </div>
+        <div>
+            <div style="display:flex; gap:12px; align-items:center;">
+                <div class="avatar" style="width:88px; height:88px;"><img id="fullAvatar"
+                        src="https://via.placeholder.com/200" alt="avatar" /></div>
+                <div style="flex:1;">
+                    <div id="fullName" style="font-weight:900; font-size:1.06rem;">Гость</div>
+                    <div id="fullMeta" class="small-muted">Не авторизован</div>
                 </div>
+            </div>
 
-                <!-- Replaced legacy email/code UI with Telegram initData flow -->
-                <div id="authControls">
-                    <div style="margin-bottom:12px;">
-                        <div class="label">Войти через Telegram</div>
-                        <div style="font-size:13px;color:var(--muted)">Откройте WebApp через своего бота в Telegram.
-                            Авторизация произойдёт автоматически.</div>
-                    </div>
-
-                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                        <button class="btn" id="forceAuthBtn" type="button">Авторизоваться сейчас</button>
-                        <button class="btn secondary" id="openProfileBtn" type="button" style="display:none">Открыть
-                            профиль</button>
-                    </div>
+            <div style="margin-top:12px;">
+                <div class="small-muted">Активность:</div>
+                <div style="display:flex; gap:8px; margin-top:8px;">
+                    <button class="btn" id="logoutFullBtn">Выйти</button>
+                    <label class="btn secondary"><input id="fullUpload" type="file" /> Загрузить аватар</label>
                 </div>
-
-                <!-- PROFILE AREA (visible when logged in) -->
-                <div id="profileArea" style="display:none;margin-top:12px;">
-                    <div class="form-group">
-                        <div class="label">Имя</div>
-                        <div id="profileName" style="font-weight:600;"></div>
-                    </div>
-
-                    <div class="form-group">
-                        <div class="label">Telegram</div>
-                        <div id="profileUsername" style="font-weight:600;color:var(--muted)"></div>
-                    </div>
-
-                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
-                        <label class="btn" id="uploadAvatarBtn">
-                            <input id="avatarFileInput" type="file" accept="image/*" style="display:none" />
-                            Загрузить аватар
-                        </label>
-                        <button class="btn secondary" id="logoutBtn" type="button">Выйти</button>
-                    </div>
-                </div>
-            </section>
-
-            <!-- THEME -->
-            <section style="margin-bottom:16px;">
-                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Тема</h3>
-
-                <!-- Automatic toggle -->
-                <div class="toggle">
-                    <div class="toggle-label">Automatic</div>
-                    <div class="switch">
-                        <input id="autoThemeSwitch" type="checkbox" />
-                        <label class="slider" for="autoThemeSwitch"></label>
-                    </div>
-                </div>
-
-                <!-- Combined Light/Dark toggle (cycles: Dark -> Light -> Off -> Dark) -->
-                <div class="toggle">
-                    <div class="toggle-label">Light / Dark</div>
-                    <div class="switch">
-                        <input id="cycleThemeSwitch" type="checkbox" />
-                        <label class="slider" for="cycleThemeSwitch"></label>
-                    </div>
-                </div>
-                <div style="margin-top:8px;font-size:0.9rem;color:var(--muted)">Нажимайте для смены темы: Light → Dark →
-                    Off</div>
-            </section>
-
-            <!-- VOLUME (only in panel) -->
-            <section style="margin-bottom:18px;">
-                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Звук</h3>
-                <div class="toggle">
-                    <div class="toggle-label" id="panelVolumeLabel">Volume Off</div>
-                    <div class="switch">
-                        <input id="panelVolumeSwitch" type="checkbox" />
-                        <label class="slider" for="panelVolumeSwitch"></label>
-                    </div>
-                </div>
-            </section>
+            </div>
         </div>
 
-        <div class="side-footer">
-            <button class="btn secondary" id="panelCancel" type="button">Отмена</button>
-            <button class="btn" id="panelApply" type="button">Применить</button>
+        <div style="margin-top:16px;">
+            <div style="font-weight:800; margin-bottom:8px;">Дополнительно</div>
+            <div class="muted-note">Здесь можно добавить больше профиля, согласий и т.д.</div>
         </div>
-    </aside>
+    </div>
 
     <!-- AOS & Telegram SDK -->
     <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
     <script src="https://telegram.org/js/telegram-web-app.js"></script>
 
     <script>
-        AOS.init({ duration: 900, once: true });
+        AOS.init({ duration: 900, once: true, easing: 'ease-out-cubic' });
 
-        // Telegram WebApp integration
+        // ---------- CONFIGURATION ----------
+        // Set your backend API base (Render)
+        const API_BASE = "https://authsrv.onrender.com"; // <- поменяй, если нужно
+
+        // ---------- TELEGRAM SDK ----------
         const tg = window.Telegram?.WebApp;
         if (tg) tg.ready();
 
-        /******************************************************************************
-         * Configuration
-         * Replace API_BASE with your Render backend URL if different
-         ******************************************************************************/
-        const API_BASE = "https://authsrv.onrender.com"; // <-- поменяй при необходимости
+        // ---------- Utilities ----------
+        function safeJSONParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
+        function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]); }
+        function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
 
-        /******************************************************************************
-         * Utilities
-         ******************************************************************************/
-        function safeJSONParse(s) { try { return JSON.parse(s); } catch { return null; } }
-        function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
-
-        /******************************************************************************
-         * Main App (keeps original features + Telegram initData auth & avatar upload)
-         ******************************************************************************/
+        // ---------- App (keeps original game & facts, adds auth & uploads) ----------
         const App = (function () {
             const state = {
-                facts: [],
-                currentMode: '',
-                currentCharacter: '',
-                survivalScore: 0,
-                soundEnabled: false,
-                backgroundMusic: null,
-                profile: null // server-side profile
+                facts: [], currentMode: '', currentCharacter: '', survivalScore: 0,
+                soundEnabled: false, backgroundMusic: null, profile: null
             };
 
-            // Haptic helpers (safe calls)
-            const Haptic = {
-                impact: (t) => tg?.HapticFeedback?.impactOccurred?.(t),
-                selection: () => tg?.HapticFeedback?.selectionChanged?.(),
-                notify: (t) => tg?.HapticFeedback?.notificationOccurred?.(t),
-                strongOff: () => { const h = tg?.HapticFeedback; if (!h) return; h.impactOccurred('heavy'); setTimeout(() => h.notificationOccurred('error'), 60); setTimeout(() => h.selectionChanged(), 120); },
-                softOn: () => { const h = tg?.HapticFeedback; if (!h) return; h.impactOccurred('medium'); setTimeout(() => h.selectionChanged(), 40); }
-            };
-
-            // DOM refs (panel/profile)
+            // DOM refs
             const refs = {
                 webappStatus: document.getElementById('webappStatus'),
-                sideAvatarImg: document.getElementById('sideAvatarImg'),
-                authStatus: document.getElementById('authStatus'),
-                profileArea: document.getElementById('profileArea'),
                 profileName: document.getElementById('profileName'),
-                profileUsername: document.getElementById('profileUsername'),
-                uploadAvatarBtn: document.getElementById('uploadAvatarBtn'),
-                avatarFileInput: document.getElementById('avatarFileInput'),
-                logoutBtn: document.getElementById('logoutBtn'),
-                forceAuthBtn: document.getElementById('forceAuthBtn'),
-                openProfileBtn: document.getElementById('openProfileBtn'),
-                menuBtn: document.getElementById('menuBtn'),
-                sidePanel: document.getElementById('sidePanel'),
-                closePanel: document.getElementById('closePanel'),
-                panelApply: document.getElementById('panelApply'),
-                panelCancel: document.getElementById('panelCancel'),
-                panelVolumeSwitch: document.getElementById('panelVolumeSwitch'),
-                panelVolumeLabel: document.getElementById('panelVolumeLabel'),
-                autoThemeSwitch: document.getElementById('autoThemeSwitch'),
-                cycleThemeSwitch: document.getElementById('cycleThemeSwitch'),
+                profileMeta: document.getElementById('profileMeta'),
+                sideAvatar: document.getElementById('sideAvatar'),
+                authBtn: document.getElementById('authNowBtn'),
+                clearSessionBtn: document.getElementById('clearSessionBtn'),
+                openPanelBtn: document.getElementById('openPanelBtn'),
+                uploadFile: document.getElementById('uploadFile'),
+                uploadAvatarLabel: document.getElementById('uploadAvatarLabel'),
+                openEncyBtn: document.getElementById('openEncyBtn'),
+                openGameBtn: document.getElementById('openGameBtn'),
+                debugBtn: document.getElementById('debugBtn'),
                 factsContainer: document.getElementById('facts-container'),
                 characterSelection: document.getElementById('character-selection'),
                 chatMessages: document.getElementById('chat-messages'),
                 choiceButtons: document.getElementById('choice-buttons'),
                 survivalProgress: document.getElementById('survival-progress'),
-                statusChip: document.getElementById('webappStatus')
+                gameplayArea: document.getElementById('gameplay-area'),
+                mobilePanelToggle: document.getElementById('mobilePanelToggle'),
+                sidePanelFull: document.getElementById('sidePanelFull'),
+                closeSideFull: document.getElementById('closeSideFull'),
+                fullAvatar: document.getElementById('fullAvatar'),
+                fullName: document.getElementById('fullName'),
+                fullMeta: document.getElementById('fullMeta'),
+                fullUpload: document.getElementById('fullUpload'),
+                bgMusicToggle: document.getElementById('bgMusic'),
+                autoTheme: document.getElementById('autoTheme')
             };
 
-            // Token storage helpers
-            const TOKEN_KEY = 'mocki_token_v1';
-            function saveToken(token) { localStorage.setItem(TOKEN_KEY, token); }
+            const TOKEN_KEY = 'mocki_tok_v2';
+
+            // Basic fetch wrappers
+            async function postJSON(url, body, headers = {}) {
+                const res = await fetch(url, { method: 'POST', headers: Object.assign({ 'Content-Type': 'application/json' }, headers), body: JSON.stringify(body) });
+                const txt = await res.text();
+                try { return { ok: res.ok, status: res.status, data: JSON.parse(txt) }; } catch { return { ok: res.ok, status: res.status, data: txt }; }
+            }
+            async function getJSON(url, headers = {}) {
+                const res = await fetch(url, { headers });
+                const txt = await res.text();
+                try { return { ok: res.ok, status: res.status, data: JSON.parse(txt) }; } catch { return { ok: res.ok, status: res.status, data: txt }; }
+            }
+
+            // Token helpers
+            function saveToken(t) { localStorage.setItem(TOKEN_KEY, t); }
             function getToken() { return localStorage.getItem(TOKEN_KEY); }
             function clearToken() { localStorage.removeItem(TOKEN_KEY); }
 
-            // Simple fetch wrappers
-            async function postJSON(url, body, headers = {}) {
-                const res = await fetch(url, {
-                    method: 'POST',
-                    headers: Object.assign({ 'Content-Type': 'application/json' }, headers),
-                    body: JSON.stringify(body)
-                });
-                const text = await res.text();
-                try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
-                catch { return { ok: res.ok, status: res.status, data: text }; }
+            // UI helpers
+            function setStatus(txt) { refs.webappStatus && (refs.webappStatus.innerText = txt); }
+            function setProfileUI(profile) {
+                state.profile = profile || null;
+                if (!profile) {
+                    refs.profileName.innerText = 'Гость';
+                    refs.profileMeta.innerText = 'Не авторизован';
+                    refs.sideAvatar.src = 'https://via.placeholder.com/160';
+                    refs.fullAvatar.src = 'https://via.placeholder.com/200';
+                    refs.fullName.innerText = 'Гость';
+                    refs.fullMeta.innerText = 'Не авторизован';
+                    return;
+                }
+                refs.profileName.innerText = profile.name || profile.first_name || '—';
+                refs.profileMeta.innerText = profile.username ? '@' + profile.username : `ID: ${profile.id || '—'}`;
+                refs.sideAvatar.src = profile.avatar || (profile.photo_url || 'https://via.placeholder.com/160');
+                refs.fullAvatar.src = profile.avatar || (profile.photo_url || 'https://via.placeholder.com/200');
+                refs.fullName.innerText = profile.name || profile.first_name || '—';
+                refs.fullMeta.innerText = profile.username ? '@' + profile.username : `ID: ${profile.id || '—'}`;
             }
 
-            async function getJSON(url, headers = {}) {
-                const res = await fetch(url, { headers });
-                const text = await res.text();
-                try { return { ok: res.ok, status: res.status, data: JSON.parse(text) }; }
-                catch { return { ok: res.ok, status: res.status, data: text }; }
-            }
-
-            /* -------------------------
-               Facts and Encyclopedia
-               ------------------------- */
+            /* -----------------------
+               Facts & Encyclopedia
+               ----------------------- */
             async function loadFacts() {
                 try {
                     const res = await fetch('facts.json', { cache: 'no-store' });
-                    state.facts = await res.json();
+                    const data = await res.json();
+                    state.facts = Array.isArray(data) ? data : [];
                 } catch (e) {
                     state.facts = [{ id: 1, title: 'Пример факта', text: 'Факты не загружены', year: '1916', image: 'https://via.placeholder.com/600x400?text=1916' }];
                 }
                 renderFacts();
             }
-
             function renderFacts() {
                 const c = refs.factsContainer;
                 if (!c) return;
                 c.innerHTML = state.facts.map((f, i) => `
-          <article class="fact-card" data-id="${f.id}" data-aos="fade-up" data-aos-delay="${(i % 6) * 80}">
+          <article class="fact-card" data-id="${f.id}" data-aos="fade-up" data-aos-delay="${(i % 6) * 70}">
             <img src="${f.image}" class="fact-img" alt="${escapeHtml(f.title)}" loading="lazy" />
             <div class="fact-content">
               <div class="fact-year">${escapeHtml(f.year)}</div>
               <h3 class="fact-title">${escapeHtml(f.title)}</h3>
-              <p class="fact-text">${escapeHtml((f.text || '').slice(0, 140))}${(f.text || '').length > 140 ? '…' : ''}</p>
+              <p class="fact-text">${escapeHtml((f.text || '').slice(0, 160))}${(f.text || '').length > 160 ? '…' : ''}</p>
             </div>
           </article>
         `).join('');
                 c.querySelectorAll('.fact-card').forEach(card => {
-                    card.addEventListener('click', () => {
-                        const id = Number(card.dataset.id);
-                        const f = state.facts.find(x => x.id === id);
-                        if (f) alert(`${f.title} (${f.year})\n\n${f.text}`);
-                        Haptic.selection();
-                    }, { passive: true });
+                    card.addEventListener('click', () => { const id = Number(card.dataset.id); const f = state.facts.find(x => x.id === id); if (f) showFactModal(f); }, { passive: true });
                 });
             }
 
-            /* -------------------------
-               Game logic (kept as before)
-               ------------------------- */
+            function showFactModal(f) {
+                // simple modal emulation — alert replaced by custom overlay for style
+                const overlay = document.createElement('div');
+                overlay.style.position = 'fixed'; overlay.style.inset = '0'; overlay.style.background = 'rgba(0,0,0,0.7)';
+                overlay.style.display = 'grid'; overlay.style.placeItems = 'center'; overlay.style.zIndex = '1200';
+                overlay.innerHTML = `
+          <div style="max-width:860px; width:92%; background:linear-gradient(180deg,rgba(255,255,255,0.03),rgba(255,255,255,0.02)); border-radius:14px; padding:18px; border:1px solid rgba(255,255,255,0.04); box-shadow:0 30px 60px rgba(0,0,0,0.6);">
+            <div style="display:flex; justify-content:space-between; align-items:center; gap:12px;">
+              <div style="font-weight:900; color:var(--gold); font-size:1.12rem;">${escapeHtml(f.title)} <span style="font-weight:700; color:var(--muted); font-size:0.9rem; margin-left:8px;">${escapeHtml(f.year)}</span></div>
+              <button class="btn ghost" id="closeFact">Закрыть</button>
+            </div>
+            <div style="display:flex; gap:12px; margin-top:12px; align-items:flex-start;">
+              <img src="${f.image}" style="width:160px; height:110px; object-fit:cover; border-radius:8px;" alt="${escapeHtml(f.title)}" />
+              <div style="color:var(--muted); line-height:1.6;">${escapeHtml(f.text)}</div>
+            </div>
+          </div>
+        `;
+                document.body.appendChild(overlay);
+                document.getElementById('closeFact').addEventListener('click', () => overlay.remove(), { passive: true });
+            }
+
+            /* -----------------------
+               Game logic
+               ----------------------- */
             function renderCharacters() {
                 const sel = refs.characterSelection;
                 if (!sel) return;
@@ -535,60 +852,46 @@
             function startGame(char) {
                 state.currentCharacter = char;
                 document.getElementById('character-selection').style.display = 'none';
-                document.getElementById('gameplay-area').style.display = 'block';
+                refs.gameplayArea.style.display = 'block';
                 addMessage('AI', `Ты — ${char === 'soldier' ? 'солдат' : char === 'nurse' ? 'медсестра' : 'житель'}. 1916 год. Что делать?`);
                 showChoices(['Осмотреться', 'Позвать помощь', 'Спрятаться']);
-                Haptic.impact && Haptic.impact('heavy');
             }
 
             function showChoices(opts) {
-                const container = refs.choiceButtons;
-                if (!container) return;
-                container.innerHTML = opts.map(o => `<button class="choice-btn" type="button" data-choice="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('');
-                container.querySelectorAll('.choice-btn').forEach(btn => {
-                    btn.addEventListener('click', () => selectChoice(btn.dataset.choice), { passive: true });
+                refs.choiceButtons.innerHTML = opts.map(o => `<button class="choice-btn" data-choice="${escapeHtml(o)}">${escapeHtml(o)}</button>`).join('');
+                refs.choiceButtons.querySelectorAll('.choice-btn').forEach(b => {
+                    b.addEventListener('click', () => selectChoice(b.dataset.choice), { passive: true });
                 });
             }
 
             function selectChoice(choice) {
-                const userMsg = addMessage('user', choice);
-                userMsg.style.opacity = '0'; userMsg.style.transform = 'scale(0.92)';
-                requestAnimationFrame(() => {
-                    userMsg.style.transition = 'transform .24s cubic-bezier(.34,1.56,.64,1), opacity .24s ease-out';
-                    userMsg.style.opacity = '1'; userMsg.style.transform = 'scale(1)';
-                });
-                Haptic.selection();
-
+                addMessage('user', choice);
                 refs.choiceButtons.innerHTML = '';
                 setTimeout(() => {
                     const resp = generateResponse(choice);
-                    const aiMsg = addMessage('AI', resp);
-                    aiMsg.style.opacity = '0'; aiMsg.style.transform = 'scale(0.92)';
-                    requestAnimationFrame(() => { aiMsg.style.transition = 'transform .26s, opacity .26s'; aiMsg.style.opacity = '1'; aiMsg.style.transform = 'scale(1)'; });
-                    Haptic.impact && Haptic.impact('medium');
-                    if (state.soundEnabled) playSound();
+                    addMessage('AI', resp);
                     updateSurvival(12);
                 }, 700);
             }
 
             function generateResponse(choice) {
                 const map = {
-                    'Осмотреться': 'Ты видишь разрушенные дома. Дым поднимается в небо.',
-                    'Позвать помощь': 'Ты кричишь — из окопа выглядывает раненый солдат.',
-                    'Спрятаться': 'Ты ныряешь в воронку. Снаряд разрывается рядом.'
+                    'Осмотреться': 'Ты видишь разрушенные дома и дым на горизонте.',
+                    'Позвать помощь': 'Ты кричишь — в ответ слышен отдалённый шорох.',
+                    'Спрятаться': 'Ты прячешься в укрытие; вокруг — шум и обломки.'
                 };
-                return map[choice] || 'Ты действуешь...';
+                return map[choice] || 'Ты действуешь.';
             }
 
             function addMessage(sender, text) {
                 const area = refs.chatMessages;
-                if (!area) return document.createElement('div');
-                const bubble = document.createElement('div');
-                bubble.className = `message-bubble ${sender === 'user' ? 'user-msg' : 'ai-msg'}`;
-                bubble.innerHTML = `<strong>${sender === 'user' ? 'Ты' : 'AI'}:</strong> ${escapeHtml(text)}`;
-                area.appendChild(bubble);
-                bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-                return bubble;
+                if (!area) return;
+                const b = document.createElement('div');
+                b.className = 'message-bubble ' + (sender === 'user' ? 'user-msg' : 'ai-msg');
+                b.innerHTML = `<strong>${sender === 'user' ? 'Ты' : 'AI'}:</strong> ${escapeHtml(text)}`;
+                area.appendChild(b);
+                b.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return b;
             }
 
             function updateSurvival(points) {
@@ -596,263 +899,156 @@
                 if (refs.survivalProgress) refs.survivalProgress.style.width = state.survivalScore + '%';
             }
 
-            function playSound() {
-                try { const a = new Audio('https://cdn.freesound.org/previews/276/276022_5123850-lq.mp3'); a.volume = 0.18; a.play().catch(() => { }); } catch (e) { }
+            function playBgMusic(enable) {
+                if (enable) {
+                    if (!state.backgroundMusic) { state.backgroundMusic = new Audio('https://cdn.freesound.org/previews/620/620461_5674468-lq.mp3'); state.backgroundMusic.loop = true; state.backgroundMusic.volume = 0.18; }
+                    state.backgroundMusic.play().catch(() => { });
+                } else {
+                    state.backgroundMusic && state.backgroundMusic.pause();
+                }
             }
 
-            /* -------------------------
-               Side panel wiring and theme/volume
-               ------------------------- */
+            /* -----------------------
+               Side panel / settings
+               ----------------------- */
             function initPanel() {
-                refs.menuBtn && refs.menuBtn.addEventListener('click', () => {
-                    refs.sidePanel.classList.add('open'); refs.sidePanel.setAttribute('aria-hidden', 'false');
-                    Haptic.selection();
+                refs.openPanelBtn && refs.openPanelBtn.addEventListener('click', () => {
+                    document.getElementById('sidePanelFull').classList.remove('hidden');
                 }, { passive: true });
 
-                refs.closePanel && refs.closePanel.addEventListener('click', () => {
-                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
-                    Haptic.selection();
+                refs.closeSideFull && refs.closeSideFull.addEventListener('click', () => {
+                    document.getElementById('sidePanelFull').classList.add('hidden');
                 }, { passive: true });
 
-                refs.panelCancel && refs.panelCancel.addEventListener('click', () => {
-                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
-                    Haptic.selection();
+                refs.mobilePanelToggle && refs.mobilePanelToggle.addEventListener('click', () => {
+                    document.getElementById('sidePanelFull').classList.toggle('hidden');
                 }, { passive: true });
 
-                refs.panelApply && refs.panelApply.addEventListener('click', () => {
-                    Haptic.impact && Haptic.impact('medium');
-                    refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
+                refs.openEncyBtn && refs.openEncyBtn.addEventListener('click', () => App.switchMode('encyclopedia'), { passive: true });
+                refs.openGameBtn && refs.openGameBtn.addEventListener('click', () => App.switchMode('game'), { passive: true });
+
+                refs.uploadFile && refs.uploadFile.addEventListener('change', uploadAvatarHandler, { passive: true });
+                refs.fullUpload && refs.fullUpload.addEventListener('change', uploadAvatarHandler, { passive: true });
+
+                refs.bgMusicToggle && refs.bgMusicToggle.addEventListener('change', (e) => { state.soundEnabled = !!e.target.checked; playBgMusic(state.soundEnabled); });
+                refs.autoTheme && refs.autoTheme.addEventListener('change', (e) => { if (e.target.checked) { document.documentElement.removeAttribute('data-theme'); } else { document.documentElement.setAttribute('data-theme', 'dark'); } });
+
+                refs.debugBtn && refs.debugBtn.addEventListener('click', () => {
+                    alert(`Debug: token=${getToken() ? '[saved]' : '[none]'}\nprofile:${state.profile ? JSON.stringify(state.profile) : 'none'}`);
                 }, { passive: true });
 
-                // volume
-                const saved = safeJSONParse(localStorage.getItem('app_state')) || {};
-                state.soundEnabled = !!saved.soundEnabled;
-                if (refs.panelVolumeSwitch) refs.panelVolumeSwitch.checked = state.soundEnabled;
-                if (refs.panelVolumeLabel) refs.panelVolumeLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
-                refs.panelVolumeSwitch && refs.panelVolumeSwitch.addEventListener('change', () => {
-                    state.soundEnabled = !!refs.panelVolumeSwitch.checked;
-                    localStorage.setItem('app_state', JSON.stringify({ soundEnabled: state.soundEnabled }));
-                    if (state.soundEnabled) { Haptic.softOn && Haptic.softOn(); if (!state.backgroundMusic) { state.backgroundMusic = new Audio('https://cdn.freesound.org/previews/620/620461_5674468-lq.mp3'); state.backgroundMusic.loop = true; state.backgroundMusic.volume = 0.22; } state.backgroundMusic.play().catch(() => { }); }
-                    else { Haptic.strongOff && Haptic.strongOff(); state.backgroundMusic && state.backgroundMusic.pause(); }
-                    if (refs.panelVolumeLabel) refs.panelVolumeLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+                refs.clearSessionBtn && refs.clearSessionBtn.addEventListener('click', () => {
+                    clearToken(); state.profile = null; setProfileUI(null); setStatus('Сессия очищена');
                 }, { passive: true });
-
-                // theme init (keeps original behavior)
-                initTheme();
             }
 
-            function initTheme() {
-                let cycleIndex = 0;
-                let auto = true;
-                function apply(theme) { document.documentElement.setAttribute('data-theme', theme); localStorage.setItem('ui_theme_manual', theme); }
-                function resolveAuto() { const tgScheme = tg?.colorScheme; const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches; return tgScheme ? tgScheme : (sysDark ? 'dark' : 'light'); }
-                function updateFromAuto() { apply(resolveAuto()); }
-
-                if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = true;
-                if (refs.cycleThemeSwitch) refs.cycleThemeSwitch.checked = false;
-                updateFromAuto();
-
-                refs.autoThemeSwitch && refs.autoThemeSwitch.addEventListener('change', () => {
-                    auto = !!refs.autoThemeSwitch.checked;
-                    if (auto) updateFromAuto();
-                    else { const manual = localStorage.getItem('ui_theme_manual') || 'dark'; apply(manual); }
-                    Haptic.selection();
-                }, { passive: true });
-
-                refs.cycleThemeSwitch && refs.cycleThemeSwitch.addEventListener('click', (ev) => {
-                    ev.preventDefault(); Haptic.selection();
-                    cycleIndex = (cycleIndex + 1) % 3;
-                    if (cycleIndex === 1) { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('light'); refs.cycleThemeSwitch.checked = true; }
-                    else if (cycleIndex === 2) { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('dark'); refs.cycleThemeSwitch.checked = false; }
-                    else { auto = false; if (refs.autoThemeSwitch) refs.autoThemeSwitch.checked = false; apply('dark'); refs.cycleThemeSwitch.checked = false; }
-                }, { passive: true });
-
-                if (tg) tg.onEvent && tg.onEvent('themeChanged', () => { if (auto) updateFromAuto(); });
-                window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (auto) updateFromAuto(); });
+            /* -----------------------
+               Avatar upload -> backend
+               ----------------------- */
+            async function uploadAvatarHandler(e) {
+                const file = e.target.files[0];
+                if (!file) return;
+                const token = getToken();
+                if (!token) { alert('Сначала авторизуйтесь через бот в Telegram.'); return; }
+                setStatus('Загружаю аватар...');
+                const fd = new FormData(); fd.append('avatar', file);
+                try {
+                    const res = await fetch(`${API_BASE}/user/avatar`, { method: 'POST', headers: { Authorization: `Bearer ${token}` }, body: fd });
+                    const txt = await res.text();
+                    let data; try { data = JSON.parse(txt); } catch { data = txt; }
+                    if (!res.ok) { setStatus('Ошибка при загрузке'); console.error('upload fail', res.status, data); alert('Ошибка: ' + (data && data.error ? data.error : res.status)); return; }
+                    if (data && data.ok) { setStatus('Аватар успешно загружен'); await restoreProfileFromServer(); } else { setStatus('Ошибка при загрузке'); alert('Ошибка при загрузке аватара'); }
+                } catch (err) { console.error(err); setStatus('Сеть недоступна'); alert('Не удалось отправить файл на сервер'); }
             }
 
-            /* -------------------------
-               Telegram initData auth flow
-               ------------------------- */
+            /* -----------------------
+               AUTH FLOW via Telegram initData
+               ----------------------- */
             async function authorizeWithInitData(initDataString) {
                 setStatus('Авторизация через Telegram...');
                 try {
                     const { ok, status, data } = await postJSON(`${API_BASE}/auth/telegram`, { initData: initDataString });
-                    if (!ok) {
-                        setStatus('Ошибка авторизации');
-                        console.error('auth failed', status, data);
-                        return false;
-                    }
+                    if (!ok) { setStatus('Ошибка авторизации'); console.error('auth failed', status, data); return false; }
                     if (data && data.ok && data.token && data.profile) {
-                        saveToken(data.token);
-                        state.profile = data.profile;
-                        populateProfileUI(data.profile);
-                        setStatus('Вход выполнен');
-                        return true;
+                        saveToken(data.token); state.profile = data.profile; setProfileUI(data.profile); setStatus('Вход выполнен'); return true;
                     } else {
-                        setStatus('Авторизация не удалась');
-                        console.error('unexpected auth response', data);
-                        return false;
+                        setStatus('Авторизация не удалась'); console.error('unexpected auth response', data); return false;
                     }
-                } catch (err) {
-                    setStatus('Ошибка сети');
-                    console.error(err);
-                    return false;
-                }
+                } catch (err) { console.error(err); setStatus('Ошибка сети'); return false; }
             }
 
-            async function fetchProfileFromServer() {
+            async function restoreProfileFromServer() {
                 const token = getToken();
                 if (!token) return null;
                 try {
                     const { ok, status, data } = await getJSON(`${API_BASE}/me`, { Authorization: `Bearer ${token}` });
                     if (!ok) { console.warn('me failed', status, data); return null; }
-                    if (data && data.ok) return data.profile;
+                    if (data && data.ok) { state.profile = data.profile; setProfileUI(data.profile); setStatus('Профиль обновлён'); return data.profile; }
                     return null;
-                } catch (err) { console.error('fetchProfile error', err); return null; }
+                } catch (err) { console.error(err); return null; }
             }
 
-            function populateProfileUI(profile) {
-                state.profile = profile;
-                refs.sideAvatarImg.src = profile.avatar || 'https://via.placeholder.com/96';
-                refs.authStatus.textContent = 'Авторизован';
-                refs.profileArea.style.display = 'block';
-                refs.profileName.textContent = profile.name || profile.first_name || '—';
-                refs.profileUsername.textContent = profile.username ? '@' + profile.username : `ID: ${profile.id || '—'}`;
-                refs.forceAuthBtn.style.display = 'none';
-                refs.openProfileBtn.style.display = 'inline-block';
-            }
-
-            async function tryRestoreSessionOrAuth() {
-                // if there is a token, try to restore profile
+            async function tryRestoreOrInitAuth() {
                 const token = getToken();
                 if (token) {
                     setStatus('Восстанавливаю сессию...');
-                    const profile = await fetchProfileFromServer();
-                    if (profile) {
-                        populateProfileUI(profile);
-                        setStatus('Вход по сохранённому токену');
-                        return;
-                    } else {
-                        clearToken();
-                    }
+                    const p = await restoreProfileFromServer();
+                    if (p) { setStatus('Вход по сохранённому токену'); return; } else { clearToken(); }
                 }
-
-                // no token -> try initData from Telegram (only works when opened via bot)
-                const initData = window.Telegram?.WebApp?.initData || null;
-                if (initData) {
-                    const ok = await authorizeWithInitData(initData);
+                const initDataString = window.Telegram?.WebApp?.initData || null;
+                if (initDataString) {
+                    const ok = await authorizeWithInitData(initDataString);
                     if (ok) return;
-                } else {
-                    setStatus('Откройте WebApp через Telegram бота');
                 }
+                setStatus('Откройте WebApp через бота для авторизации');
             }
 
-            // avatar upload
-            refs.avatarFileInput && refs.avatarFileInput.addEventListener('change', async (e) => {
-                const file = e.target.files[0];
-                if (!file) return;
-                const token = getToken();
-                if (!token) { alert('Нет токена. Сначала авторизуйтесь через бота.'); return; }
-                setStatus('Загружаю аватар...');
-                const fd = new FormData();
-                fd.append('avatar', file);
-                try {
-                    const res = await fetch(`${API_BASE}/user/avatar`, {
-                        method: 'POST',
-                        headers: { Authorization: `Bearer ${token}` },
-                        body: fd
-                    });
-                    const txt = await res.text();
-                    let data;
-                    try { data = JSON.parse(txt); } catch { data = txt; }
-                    if (!res.ok) {
-                        setStatus('Ошибка загрузки');
-                        console.error('avatar upload fail', res.status, data);
-                        alert('Ошибка при загрузке аватара: ' + (data && data.error ? data.error : res.status));
-                        return;
-                    }
-                    if (data && data.ok) {
-                        setStatus('Аватар загружен');
-                        const profile = await fetchProfileFromServer();
-                        if (profile) populateProfileUI(profile);
-                    } else {
-                        setStatus('Ошибка загрузки');
-                        console.error('avatar upload response', data);
-                        alert('Ошибка при загрузке аватара');
-                    }
-                } catch (err) {
-                    setStatus('Ошибка сети');
-                    console.error(err);
-                    alert('Не удалось отправить файл на сервер');
-                }
-            }, { passive: true });
-
-            // UI handlers
-            refs.logoutBtn && refs.logoutBtn.addEventListener('click', () => {
-                clearToken();
-                state.profile = null;
-                refs.sideAvatarImg.src = 'https://via.placeholder.com/96';
-                refs.authStatus.textContent = 'Не авторизован';
-                refs.profileArea.style.display = 'none';
-                refs.forceAuthBtn.style.display = 'inline-block';
-                refs.openProfileBtn.style.display = 'none';
-                setStatus('Выход выполнен');
-            }, { passive: true });
-
-            refs.forceAuthBtn && refs.forceAuthBtn.addEventListener('click', async () => {
-                setStatus('Инициация авторизации...');
-                const initData = window.Telegram?.WebApp?.initData || null;
-                if (!initData) { alert('Откройте WebApp через Telegram бота (внутри мессенджера).'); return; }
-                await authorizeWithInitData(initData);
-            }, { passive: true });
-
-            refs.openProfileBtn && refs.openProfileBtn.addEventListener('click', () => {
-                refs.sidePanel.classList.add('open');
-            }, { passive: true });
-
-            refs.uploadAvatarBtn && refs.uploadAvatarBtn.addEventListener('click', () => {
-                refs.avatarFileInput && refs.avatarFileInput.click();
-            }, { passive: true });
-
-            /* Init: wire panel, load content, restore session */
-            function setStatus(txt) {
-                refs.statusChip && (refs.statusChip.innerText = txt);
-            }
-
-            async function init() {
-                initPanel();
-                loadFacts();
-                renderCharacters();
-
-                // keyboard & gestures
-                document.addEventListener('keydown', (e) => {
-                    if (e.key === 'Escape' && refs.sidePanel && refs.sidePanel.classList.contains('open')) {
-                        refs.sidePanel.classList.remove('open'); refs.sidePanel.setAttribute('aria-hidden', 'true');
-                    }
-                });
-
-                // try restore or auth via initData
-                await tryRestoreSessionOrAuth();
-            }
-
+            // Public methods
             return {
-                init, switchMode: function (mode) {
-                    // show/hide blocks
+                init: async function () {
+                    setStatus('Инициализация UI...');
+                    initPanel();
+                    await loadFacts();
+                    renderCharacters();
+
+                    // keyboard escape to close full panel
+                    document.addEventListener('keydown', (e) => {
+                        if (e.key === 'Escape') { document.getElementById('sidePanelFull').classList.add('hidden'); }
+                    });
+
+                    // menu handlers
+                    document.getElementById('openGameBtn') && document.getElementById('openGameBtn').addEventListener('click', () => this.switchMode('game'), { passive: true });
+
+                    // attempt auth restoration
+                    await tryRestoreOrInitAuth();
+                    AOS.refresh();
+                    setStatus('Готово');
+                },
+                switchMode: function (mode) {
                     state.currentMode = mode;
-                    document.getElementById('encyclopedia').style.display = (mode === 'encyclopedia') ? '' : 'none';
-                    document.getElementById('game').style.display = (mode === 'game') ? '' : 'none';
+                    document.getElementById('encyclopedia').style.display = mode === 'encyclopedia' ? '' : 'none';
+                    document.getElementById('game').style.display = mode === 'game' ? '' : 'none';
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
                 }
             };
         })();
 
+        // ---------- Startup ----------
         document.addEventListener('DOMContentLoaded', () => App.init(), { once: true });
+
+        // ---------- Telegram ready & helper events ----------
+        // Ensure Telegram SDK is ready and we can access initData when inside Telegram
+        try { window.Telegram?.WebApp?.ready(); } catch (e) { /* ignore */ }
+
+        // set global helper functions for debugging in console
+        window.__appDebug = {
+            getToken: () => localStorage.getItem('mocki_tok_v2'),
+            clearToken: () => localStorage.removeItem('mocki_tok_v2')
+        };
     </script>
 
-    <!-- keep AOS script init at end -->
-    <script>
-        AOS.refresh();
-    </script>
+    <!-- AOS refresh at end for dynamic content -->
+    <script> AOS.refresh(); </script>
 </body>
 
 </html>
