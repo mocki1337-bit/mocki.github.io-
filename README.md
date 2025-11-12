@@ -1,1 +1,1188 @@
-# mocki.github.io-
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1" />
+    <meta name="theme-color" content="#0a0503" />
+    <title>Сморгонь 1916 — WebApp</title>
+
+    <!-- Шрифт -->
+    <link href="https://fonts.cdnfonts.com/css/sf-pro-display" rel="stylesheet" />
+    <!-- AOS -->
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet" />
+
+    <style>
+        /* ============================
+       THEME & DESIGN VARIABLES
+       ============================ */
+        :root {
+            --radius-xl: 24px;
+            --radius-lg: 14px;
+            --pad-xl: 28px;
+            --pad-lg: 18px;
+            --transition: all 0.28s cubic-bezier(0.25, 0.8, 0.25, 1);
+
+            --bg-img: url('https://images.unsplash.com/photo-1605812830455-3f8d943c77b9?auto=format&fit=crop&q=60&w=1600&h=900&crop=entropy');
+            --text: #f0e6d2;
+            --muted: rgba(240, 230, 210, 0.78);
+            --gold: #d4a574;
+            --accent: #8B4513;
+
+            --glass: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.22);
+            --glass-blur: blur(22px);
+            --glass-shadow: 0 14px 42px rgba(0, 0, 0, 0.48);
+
+            --switch-track: rgba(255, 255, 255, 0.155);
+            --switch-border: rgba(255, 255, 255, 0.22);
+            --switch-on: rgba(52, 199, 89, 0.40);
+            --switch-on-border: rgba(52, 199, 89, 0.58);
+            --panel-bg: rgba(0, 0, 0, 0.24);
+
+            --max-panel-width: min(70vw, 420px);
+        }
+
+        html[data-theme="dark"] {
+            --text: #f0e6d2;
+            --muted: rgba(240, 230, 210, 0.78);
+            --gold: #d4a574;
+            --glass: rgba(255, 255, 255, 0.12);
+            --glass-border: rgba(255, 255, 255, 0.22);
+            --panel-bg: rgba(0, 0, 0, 0.24);
+            --switch-track: rgba(255, 255, 255, 0.155);
+            --switch-border: rgba(255, 255, 255, 0.22);
+        }
+
+        html[data-theme="light"] {
+            --text: #1b1e23;
+            --muted: rgba(27, 30, 35, 0.72);
+            --gold: #af7f4f;
+            --glass: rgba(255, 255, 255, 0.55);
+            --glass-border: rgba(255, 255, 255, 0.85);
+            --panel-bg: rgba(255, 255, 255, 0.7);
+            --switch-track: rgba(0, 0, 0, 0.08);
+            --switch-border: rgba(0, 0, 0, 0.14);
+        }
+
+        @media (prefers-color-scheme: light) {
+            html:not([data-theme]) {
+                color-scheme: light;
+            }
+        }
+
+        @media (prefers-color-scheme: dark) {
+            html:not([data-theme]) {
+                color-scheme: dark;
+            }
+        }
+
+        /* ============================
+       BASE
+       ============================ */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-font-smoothing: antialiased;
+            -webkit-tap-highlight-color: transparent
+        }
+
+        html,
+        body {
+            height: 100%
+        }
+
+        body {
+            font-family: 'SF Pro Display', system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: linear-gradient(135deg, rgba(10, 5, 3, 0.96), rgba(28, 15, 8, 0.88)), var(--bg-img) center/cover no-repeat fixed;
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .container {
+            max-width: 1120px;
+            margin: 0 auto;
+            padding: 26px 22px;
+            contain: content
+        }
+
+        /* GLASS */
+        .glass {
+            background: var(--glass);
+            border-radius: var(--radius-xl);
+            border: 1px solid var(--glass-border);
+            backdrop-filter: var(--glass-blur);
+            -webkit-backdrop-filter: var(--glass-blur);
+            box-shadow: var(--glass-shadow);
+            padding: var(--pad-xl);
+            transition: var(--transition);
+            will-change: transform, box-shadow;
+        }
+
+        .glass:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 18px 52px rgba(0, 0, 0, 0.58)
+        }
+
+        /* HEADER */
+        .header {
+            text-align: center;
+            padding: 40px 0 20px
+        }
+
+        .header h1 {
+            font-size: clamp(2.2rem, 4.2vw, 3.6rem);
+            font-weight: 800;
+            background: linear-gradient(90deg, var(--gold), #f0d9b5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 22px rgba(0, 0, 0, 0.35);
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: clamp(1rem, 1.8vw, 1.12rem);
+            font-style: italic;
+            color: var(--muted);
+            letter-spacing: -0.35px
+        }
+
+        /* MODES */
+        .modes {
+            display: flex;
+            justify-content: center;
+            gap: 24px;
+            flex-wrap: wrap;
+            margin: 28px 0 8px
+        }
+
+        .mode-card {
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: var(--radius-xl);
+            padding: 28px 24px;
+            width: min(320px, 100%);
+            text-align: center;
+            cursor: pointer;
+            transition: var(--transition);
+            font-weight: 600;
+            box-shadow: var(--glass-shadow);
+            will-change: transform, box-shadow;
+        }
+
+        .mode-card:hover {
+            transform: translateY(-10px) scale(1.035);
+            box-shadow: 0 24px 60px rgba(139, 69, 19, 0.28)
+        }
+
+        .mode-icon {
+            font-size: 2.6rem;
+            margin-bottom: 14px
+        }
+
+        .mode-card h3 {
+            font-size: 1.18rem;
+            color: var(--gold);
+            margin-bottom: 8px
+        }
+
+        .mode-card p {
+            font-size: 1rem;
+            color: var(--muted);
+            line-height: 1.4
+        }
+
+        /* SECTIONS */
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 16px;
+            text-align: center
+        }
+
+        /* FACT GRID */
+        .fact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 22px;
+            margin-top: 8px
+        }
+
+        .fact-card {
+            background: var(--glass);
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            border: 1px solid var(--glass-border);
+            box-shadow: var(--glass-shadow);
+            cursor: pointer;
+            transition: var(--transition)
+        }
+
+        .fact-card:hover {
+            transform: translateY(-8px)
+        }
+
+        .fact-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            filter: sepia(0.18) brightness(0.95);
+            transition: filter .3s
+        }
+
+        .fact-card:hover .fact-img {
+            filter: sepia(0.08) brightness(1.06)
+        }
+
+        .fact-content {
+            padding: 18px;
+            position: relative
+        }
+
+        .fact-year {
+            position: absolute;
+            top: 12px;
+            right: 12px;
+            background: var(--accent);
+            color: #fff;
+            padding: 6px 12px;
+            border-radius: 18px;
+            font-weight: 600
+        }
+
+        .fact-title {
+            font-size: 1.06rem;
+            font-weight: 700;
+            color: var(--gold);
+            margin-bottom: 8px
+        }
+
+        .fact-text {
+            font-size: .98rem;
+            color: var(--muted);
+            line-height: 1.55
+        }
+
+        /* CHARACTER GRID */
+        .character-grid {
+            display: flex;
+            justify-content: center;
+            gap: 18px;
+            flex-wrap: wrap;
+            margin-bottom: 18px
+        }
+
+        .char-btn {
+            background: rgba(139, 69, 19, 0.24);
+            border: 1px solid #8B4513;
+            color: var(--text);
+            padding: 12px 16px;
+            border-radius: 14px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            backdrop-filter: blur(7px);
+            transition: var(--transition)
+        }
+
+        .char-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 26px rgba(139, 69, 19, 0.24)
+        }
+
+        /* CHAT */
+        .chat-area {
+            max-height: 520px;
+            overflow-y: auto;
+            padding: 16px;
+            margin-bottom: 18px;
+            border-radius: 14px;
+            background: rgba(0, 0, 0, 0.12)
+        }
+
+        .message-bubble {
+            max-width: 80%;
+            margin: 12px 0;
+            padding: 14px 16px;
+            border-radius: 16px;
+            font-weight: 500;
+            line-height: 1.55;
+            animation: msgPop .38s cubic-bezier(.34, 1.56, .64, 1);
+            backdrop-filter: blur(7px);
+            box-shadow: 0 5px 14px rgba(0, 0, 0, 0.18)
+        }
+
+        .ai-msg {
+            background: rgba(44, 26, 16, 0.62);
+            margin-right: auto;
+            border-bottom-left-radius: 7px
+        }
+
+        .user-msg {
+            background: rgba(93, 63, 47, 0.62);
+            margin-left: auto;
+            border-bottom-right-radius: 7px
+        }
+
+        @keyframes msgPop {
+            from {
+                transform: scale(.92);
+                opacity: 0
+            }
+
+            to {
+                transform: scale(1);
+                opacity: 1
+            }
+        }
+
+        /* CHOICES */
+        .choice-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            margin: 16px 0
+        }
+
+        .choice-btn {
+            background: rgba(139, 69, 19, 0.68);
+            color: #fff;
+            border: none;
+            padding: 12px;
+            border-radius: 12px;
+            font-weight: 700;
+            cursor: pointer
+        }
+
+        .choice-btn:hover {
+            transform: translateX(6px);
+            box-shadow: 0 10px 22px rgba(139, 69, 19, 0.22)
+        }
+
+        /* PROGRESS */
+        .progress-container {
+            height: 12px;
+            background: rgba(0, 0, 0, 0.18);
+            border-radius: 7px;
+            overflow: hidden;
+            margin: 16px 0
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #8B4513, #d4a574);
+            transition: width .9s ease
+        }
+
+        /* MENU BUTTON (three dots) */
+        .menu-button {
+            position: fixed;
+            top: 8px;
+            right: 12px;
+            z-index: 10001;
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: var(--glass);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.18);
+            display: grid;
+            place-items: center;
+            cursor: pointer;
+            transition: var(--transition)
+        }
+
+        .menu-button:hover {
+            transform: translateY(-2px)
+        }
+
+        .menu-icon {
+            width: 18px;
+            height: 18px;
+            position: relative
+        }
+
+        .menu-icon::before,
+        .menu-icon::after,
+        .menu-icon span {
+            content: '';
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 3px;
+            border-radius: 3px;
+            background: var(--text);
+            opacity: .85
+        }
+
+        .menu-icon::before {
+            top: 0
+        }
+
+        .menu-icon span {
+            top: 7.5px
+        }
+
+        .menu-icon::after {
+            bottom: 0
+        }
+
+        /* SIDE PANEL */
+        .side-panel {
+            position: fixed;
+            top: 0;
+            right: 0;
+            height: 100dvh;
+            width: var(--max-panel-width);
+            background: var(--panel-bg);
+            backdrop-filter: blur(24px);
+            -webkit-backdrop-filter: blur(24px);
+            border-left: 1px solid var(--glass-border);
+            box-shadow: -16px 0 40px rgba(0, 0, 0, 0.26);
+            transform: translateX(110%);
+            transition: transform .36s cubic-bezier(.22, 1, .36, 1);
+            z-index: 10000;
+            display: grid;
+            grid-template-rows: auto 1fr auto;
+        }
+
+        .side-panel.open {
+            transform: translateX(0)
+        }
+
+        .side-header {
+            padding: 18px 16px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            border-bottom: 1px solid var(--glass-border)
+        }
+
+        .side-title {
+            font-weight: 700;
+            color: var(--gold)
+        }
+
+        .side-content {
+            padding: 16px;
+            overflow-y: auto
+        }
+
+        .side-footer {
+            padding: 12px 16px;
+            border-top: 1px solid var(--glass-border);
+            display: flex;
+            gap: 8px;
+            justify-content: flex-end
+        }
+
+        /* FORM, AVATAR, TOGGLERS */
+        .form-group {
+            display: grid;
+            gap: 6px;
+            margin-bottom: 12px
+        }
+
+        .label {
+            font-size: .92rem;
+            color: var(--muted)
+        }
+
+        .input {
+            width: 100%;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.12);
+            color: var(--text);
+            outline: none;
+            transition: var(--transition)
+        }
+
+        .input:focus {
+            box-shadow: 0 0 0 4px rgba(212, 165, 116, 0.12);
+            border-color: var(--gold)
+        }
+
+        .btn {
+            appearance: none;
+            border: none;
+            cursor: pointer;
+            border-radius: 12px;
+            padding: 12px 14px;
+            font-weight: 700;
+            color: #fff;
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.16), rgba(255, 255, 255, 0.06)), linear-gradient(180deg, #af7f4f, #8B4513);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), 0 10px 20px rgba(0, 0, 0, 0.25)
+        }
+
+        .btn.secondary {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.08));
+            color: var(--text);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 8px 16px rgba(0, 0, 0, 0.12)
+        }
+
+        .avatar-block {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px
+        }
+
+        .avatar {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.18);
+            border: 1px solid var(--glass-border);
+            overflow: hidden;
+            display: grid;
+            place-items: center
+        }
+
+        .avatar img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover
+        }
+
+        .toggle {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 10px 12px;
+            border-radius: 12px;
+            border: 1px solid var(--glass-border);
+            background: rgba(255, 255, 255, 0.10);
+            margin-bottom: 8px
+        }
+
+        .toggle-label {
+            font-weight: 600
+        }
+
+        .switch {
+            position: relative;
+            width: 52px;
+            height: 32px
+        }
+
+        .switch input {
+            opacity: 0;
+            width: 0;
+            height: 0
+        }
+
+        .slider {
+            position: absolute;
+            inset: 0;
+            cursor: pointer;
+            background: var(--switch-track);
+            border-radius: 16px;
+            border: 1px solid var(--switch-border);
+            backdrop-filter: blur(12px);
+            transition: var(--transition)
+        }
+
+        .slider::before {
+            content: '';
+            position: absolute;
+            height: 26px;
+            width: 26px;
+            left: 3px;
+            bottom: 3px;
+            background: linear-gradient(145deg, #fafafa, #dadada);
+            border-radius: 13px;
+            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.32);
+            transition: var(--transition)
+        }
+
+        .switch input:checked+.slider {
+            background: var(--switch-on);
+            border-color: var(--switch-on-border);
+            box-shadow: inset 0 1px 5px rgba(0, 0, 0, 0.3), 0 0 12px rgba(52, 199, 89, 0.24)
+        }
+
+        .switch input:checked+.slider::before {
+            transform: translateX(20px);
+            background: linear-gradient(145deg, #4ade80, #22c55e)
+        }
+
+        @media (max-width:768px) {
+            .fact-img {
+                height: 160px
+            }
+
+            .side-panel {
+                width: min(78vw, 420px)
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <!-- HEADER -->
+        <header class="header" data-aos="fade-down" data-aos-duration="1000">
+            <h1>СМОРГОНЬ 1916</h1>
+            <p>Хроники Первой мировой войны</p>
+        </header>
+
+        <!-- MODES -->
+        <section class="modes" data-aos="fade-up" data-aos-delay="300">
+            <div class="mode-card" onclick="App.switchMode('encyclopedia')">
+                <div class="mode-icon">📖</div>
+                <h3>Узнать правду</h3>
+                <p>Факты, фото, видео</p>
+            </div>
+            <div class="mode-card" onclick="App.switchMode('game')">
+                <div class="mode-icon">🎮</div>
+                <h3>Выжить в аду</h3>
+                <p>Интерактивная история</p>
+            </div>
+        </section>
+
+        <!-- ENCYCLOPEDIA -->
+        <section id="encyclopedia" class="glass" style="display:none;" aria-hidden="true">
+            <h2 class="section-title">Исторические факты</h2>
+            <div class="fact-grid" id="facts-container"></div>
+        </section>
+
+        <!-- GAME -->
+        <section id="game" class="glass" style="display:none;" aria-hidden="true">
+            <h2 class="section-title">Выбери персонажа</h2>
+            <div class="character-grid" id="character-selection"></div>
+
+            <div id="gameplay-area" style="display:none;">
+                <div class="chat-area" id="chat-messages" aria-live="polite"></div>
+
+                <div class="progress-container" role="progressbar" aria-valuemin="0" aria-valuemax="100"
+                    aria-valuenow="0">
+                    <div class="progress-bar" id="survival-progress"></div>
+                </div>
+
+                <div class="choice-container" id="choice-buttons"></div>
+            </div>
+        </section>
+    </div>
+
+    <!-- MENU BUTTON -->
+    <button class="menu-button" id="menuBtn" aria-label="Открыть меню">
+        <div class="menu-icon"><span></span></div>
+    </button>
+
+    <!-- SIDE PANEL -->
+    <aside class="side-panel" id="sidePanel" aria-hidden="true">
+        <div class="side-header">
+            <div class="side-title">Настройки и профиль</div>
+            <button class="btn secondary" id="closePanel" type="button" aria-label="Закрыть панель">Закрыть</button>
+        </div>
+
+        <div class="side-content">
+            <!-- PROFILE -->
+            <section style="margin-bottom:16px;">
+                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Профиль</h3>
+
+                <div class="avatar-block">
+                    <div class="avatar"><img id="avatarImg" alt="avatar preview" src="" /></div>
+                    <div>
+                        <div class="label">Ваш статус</div>
+                        <div id="authStatus" style="font-weight:700;">Не авторизован</div>
+                    </div>
+                </div>
+
+                <!-- AUTH AREA -->
+                <div id="authArea">
+                    <div class="form-group">
+                        <label class="label" for="emailInput">Email</label>
+                        <input id="emailInput" class="input" type="email" placeholder="you@example.com"
+                            autocomplete="email" />
+                    </div>
+
+                    <div class="form-group">
+                        <label class="label" for="codeInput">Код из письма</label>
+                        <input id="codeInput" class="input" type="text" inputmode="numeric" placeholder="123456"
+                            maxlength="6" />
+                    </div>
+
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn" id="sendCodeBtn" type="button">Отправить код</button>
+                        <button class="btn secondary" id="loginBtn" type="button">Войти</button>
+                        <button class="btn secondary" id="setAvatarBtn" type="button">Выбрать аватар</button>
+                    </div>
+                </div>
+
+                <!-- PROFILE AREA (visible when logged in) -->
+                <div id="profileArea" style="display:none;margin-top:12px;">
+                    <div class="form-group">
+                        <div class="label">Email</div>
+                        <div id="profileEmail" style="font-weight:600;"></div>
+                    </div>
+                    <div style="display:flex;gap:8px;flex-wrap:wrap;">
+                        <button class="btn" id="changeAvatarBtn" type="button">Сменить аватар</button>
+                        <button class="btn secondary" id="logoutBtn" type="button">Выйти</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- THEME -->
+            <section style="margin-bottom:16px;">
+                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Тема</h3>
+
+                <!-- Automatic toggle -->
+                <div class="toggle">
+                    <div class="toggle-label">Automatic</div>
+                    <div class="switch">
+                        <input id="autoThemeSwitch" type="checkbox" />
+                        <label class="slider" for="autoThemeSwitch"></label>
+                    </div>
+                </div>
+
+                <!-- Combined Light/Dark toggle (cycles: Dark -> Light -> Off -> Dark) -->
+                <div class="toggle">
+                    <div class="toggle-label">Light / Dark</div>
+                    <div class="switch">
+                        <input id="cycleThemeSwitch" type="checkbox" />
+                        <label class="slider" for="cycleThemeSwitch"></label>
+                    </div>
+                </div>
+                <div style="margin-top:8px;font-size:0.9rem;color:var(--muted)">Нажимайте для смены темы: Light → Dark →
+                    Off</div>
+            </section>
+
+            <!-- VOLUME (only in panel) -->
+            <section style="margin-bottom:18px;">
+                <h3 class="section-title" style="font-size:1.12rem;margin-bottom:10px;">Звук</h3>
+                <div class="toggle">
+                    <div class="toggle-label" id="panelVolumeLabel">Volume Off</div>
+                    <div class="switch">
+                        <input id="panelVolumeSwitch" type="checkbox" />
+                        <label class="slider" for="panelVolumeSwitch"></label>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+
+        <div class="side-footer">
+            <button class="btn secondary" id="panelCancel" type="button">Отмена</button>
+            <button class="btn" id="panelApply" type="button">Применить</button>
+        </div>
+    </aside>
+
+    <!-- AOS & Telegram SDK -->
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script src="https://telegram.org/js/telegram-web-app.js"></script>
+
+    <script>
+        AOS.init({ duration: 900, once: true });
+
+        // Telegram WebApp integration
+        const tg = window.Telegram?.WebApp;
+        if (tg) tg.ready();
+
+        // Main App module
+        const App = (function () {
+            const state = {
+                facts: [],
+                currentMode: '',
+                currentCharacter: '',
+                survivalScore: 0,
+                soundEnabled: false,
+                backgroundMusic: null,
+                profile: null
+            };
+
+            // Haptic wrappers
+            const Haptic = {
+                impact: (type) => tg?.HapticFeedback?.impactOccurred?.(type),
+                selection: () => tg?.HapticFeedback?.selectionChanged?.(),
+                notify: (type) => tg?.HapticFeedback?.notificationOccurred?.(type),
+                strongOff: () => {
+                    const h = tg?.HapticFeedback;
+                    if (!h) return;
+                    h.impactOccurred('heavy');
+                    setTimeout(() => h.notificationOccurred('error'), 60);
+                    setTimeout(() => h.selectionChanged(), 120);
+                },
+                softOn: () => {
+                    const h = tg?.HapticFeedback;
+                    if (!h) return;
+                    h.impactOccurred('medium');
+                    setTimeout(() => h.selectionChanged(), 40);
+                }
+            };
+
+            /* Data loading & rendering */
+            async function loadFacts() {
+                try {
+                    const res = await fetch('facts.json', { cache: 'no-store' });
+                    const data = await res.json();
+                    state.facts = Array.isArray(data) ? data : [];
+                } catch (e) {
+                    state.facts = [
+                        { id: 1, title: 'Пример факта', text: 'Факты не загружены', year: '1916', image: 'https://via.placeholder.com/600x400?text=1916' }
+                    ];
+                }
+                renderFacts();
+            }
+
+            function renderFacts() {
+                const container = document.getElementById('facts-container');
+                if (!container) return;
+                container.innerHTML = state.facts.map((f, i) => `
+          <article class="fact-card" data-id="${f.id}" data-aos="fade-up" data-aos-delay="${(i % 6) * 80}">
+            <img src="${f.image}" class="fact-img" alt="${escapeHtml(f.title)}" loading="lazy" />
+            <div class="fact-content">
+              <div class="fact-year">${escapeHtml(f.year)}</div>
+              <h3 class="fact-title">${escapeHtml(f.title)}</h3>
+              <p class="fact-text">${escapeHtml((f.text || '').slice(0, 140))}${(f.text || '').length > 140 ? '…' : ''}</p>
+            </div>
+          </article>
+        `).join('');
+                container.querySelectorAll('.fact-card').forEach(card => {
+                    card.addEventListener('click', () => {
+                        const id = Number(card.dataset.id);
+                        showFact(id);
+                    }, { passive: true });
+                });
+            }
+
+            function showFact(id) {
+                const f = state.facts.find(x => x.id === id);
+                if (!f) return;
+                alert(`${f.title} (${f.year})\n\n${f.text}`);
+                Haptic.selection();
+            }
+
+            /* Game */
+            function renderCharacters() {
+                const sel = document.getElementById('character-selection');
+                if (!sel) return;
+                sel.innerHTML = `
+          <button class="char-btn" data-char="soldier" type="button">Солдат</button>
+          <button class="char-btn" data-char="nurse" type="button">Медсестра</button>
+          <button class="char-btn" data-char="resident" type="button">Житель</button>
+        `;
+                sel.querySelectorAll('.char-btn').forEach(btn => {
+                    btn.addEventListener('click', () => {
+                        startGame(btn.dataset.char);
+                    }, { passive: true });
+                });
+            }
+
+            function startGame(char) {
+                state.currentCharacter = char;
+                document.getElementById('character-selection').style.display = 'none';
+                document.getElementById('gameplay-area').style.display = 'block';
+                addMessage('AI', `Ты — ${char === 'soldier' ? 'солдат' : char === 'nurse' ? 'медсестра' : 'житель'}. 1916 год. Что делать?`);
+                showChoices(['Осмотреться', 'Позвать помощь', 'Спрятаться']);
+                Haptic.impact && Haptic.impact('heavy');
+            }
+
+            function showChoices(opts) {
+                const container = document.getElementById('choice-buttons');
+                if (!container) return;
+                container.innerHTML = opts.map(o => `<button class="choice-btn" type="button" data-choice="${o}">${o}</button>`).join('');
+                container.querySelectorAll('.choice-btn').forEach(btn => {
+                    btn.addEventListener('click', () => selectChoice(btn.dataset.choice), { passive: true });
+                });
+            }
+
+            function selectChoice(choice) {
+                const userMsg = addMessage('user', choice);
+                userMsg.style.opacity = '0'; userMsg.style.transform = 'scale(0.92)';
+                requestAnimationFrame(() => {
+                    userMsg.style.transition = 'transform .24s cubic-bezier(.34,1.56,.64,1), opacity .24s ease-out';
+                    userMsg.style.opacity = '1'; userMsg.style.transform = 'scale(1)';
+                });
+                Haptic.selection();
+
+                document.getElementById('choice-buttons').innerHTML = '';
+                setTimeout(() => {
+                    const resp = generateResponse(choice);
+                    const aiMsg = addMessage('AI', resp);
+                    aiMsg.style.opacity = '0'; aiMsg.style.transform = 'scale(0.92)';
+                    requestAnimationFrame(() => { aiMsg.style.transition = 'transform .26s, opacity .26s'; aiMsg.style.opacity = '1'; aiMsg.style.transform = 'scale(1)'; });
+                    Haptic.impact && Haptic.impact('medium');
+                    if (state.soundEnabled) playSound();
+                    updateSurvival(12);
+                }, 700);
+            }
+
+            function generateResponse(choice) {
+                const map = {
+                    'Осмотреться': 'Ты видишь разрушенные дома. Дым поднимается в небо.',
+                    'Позвать помощь': 'Ты кричишь — из окопа выглядывает раненый солдат.',
+                    'Спрятаться': 'Ты ныряешь в воронку. Снаряд разрывается рядом.'
+                };
+                return map[choice] || 'Ты действуешь...';
+            }
+
+            function addMessage(sender, text) {
+                const area = document.getElementById('chat-messages');
+                if (!area) return document.createElement('div');
+                const bubble = document.createElement('div');
+                bubble.className = `message-bubble ${sender === 'user' ? 'user-msg' : 'ai-msg'}`;
+                bubble.innerHTML = `<strong>${sender === 'user' ? 'Ты' : 'AI'}:</strong> ${escapeHtml(text)}`;
+                area.appendChild(bubble);
+                bubble.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                return bubble;
+            }
+
+            function updateSurvival(points) {
+                state.survivalScore = Math.min((state.survivalScore || 0) + points, 100);
+                const bar = document.getElementById('survival-progress');
+                if (bar) bar.style.width = state.survivalScore + '%';
+            }
+
+            function playSound() {
+                try { const a = new Audio('https://cdn.freesound.org/previews/276/276022_5123850-lq.mp3'); a.volume = 0.18; a.play().catch(() => { }); } catch (e) { }
+            }
+
+            /* Side panel wiring */
+            function initPanel() {
+                const menuBtn = document.getElementById('menuBtn');
+                const side = document.getElementById('sidePanel');
+                const closeBtn = document.getElementById('closePanel');
+                const cancelBtn = document.getElementById('panelCancel');
+                const applyBtn = document.getElementById('panelApply');
+
+                menuBtn && menuBtn.addEventListener('click', () => {
+                    side.classList.add('open'); side.setAttribute('aria-hidden', 'false');
+                    Haptic.selection();
+                }, { passive: true });
+
+                [closeBtn, cancelBtn].forEach(btn => {
+                    btn && btn.addEventListener('click', () => {
+                        side.classList.remove('open'); side.setAttribute('aria-hidden', 'true');
+                        Haptic.selection();
+                    }, { passive: true });
+                });
+
+                applyBtn && applyBtn.addEventListener('click', () => {
+                    Haptic.impact && Haptic.impact('medium');
+                    side.classList.remove('open'); side.setAttribute('aria-hidden', 'true');
+                }, { passive: true });
+            }
+
+            /* Auth UI (mock) */
+            function initAuth() {
+                const authStatus = document.getElementById('authStatus');
+                const authArea = document.getElementById('authArea');
+                const profileArea = document.getElementById('profileArea');
+                const emailInput = document.getElementById('emailInput');
+                const codeInput = document.getElementById('codeInput');
+                const sendCodeBtn = document.getElementById('sendCodeBtn');
+                const loginBtn = document.getElementById('loginBtn');
+                const setAvatarBtn = document.getElementById('setAvatarBtn');
+                const changeAvatarBtn = document.getElementById('changeAvatarBtn');
+                const logoutBtn = document.getElementById('logoutBtn');
+                const profileEmail = document.getElementById('profileEmail');
+                const avatarImg = document.getElementById('avatarImg');
+
+                const saved = safeJSONParse(localStorage.getItem('profile'));
+                if (saved && saved.email) {
+                    state.profile = saved;
+                    authStatus.textContent = 'Авторизован';
+                    profileEmail.textContent = saved.email;
+                    avatarImg.src = saved.avatar || '';
+                    authArea.style.display = 'none';
+                    profileArea.style.display = 'block';
+                } else {
+                    authStatus.textContent = 'Не авторизован';
+                    authArea.style.display = 'block';
+                    profileArea.style.display = 'none';
+                }
+
+                sendCodeBtn && sendCodeBtn.addEventListener('click', () => {
+                    Haptic.selection();
+                    const email = (emailInput.value || '').trim();
+                    if (!isValidEmail(email)) return alert('Введите корректный email');
+                    alert('Код отправлен на ' + email + ' (имитация). При реальной интеграции замените этим вызовом POST к бэкенду.');
+                }, { passive: true });
+
+                loginBtn && loginBtn.addEventListener('click', () => {
+                    Haptic.impact && Haptic.impact('medium');
+                    const email = (emailInput.value || '').trim();
+                    const code = (codeInput.value || '').trim();
+                    if (!isValidEmail(email) || !isValidCode(code)) return alert('Введите корректный email и 6-значный код');
+                    state.profile = { email, avatar: avatarImg.src || '' };
+                    localStorage.setItem('profile', JSON.stringify(state.profile));
+                    authStatus.textContent = 'Авторизован';
+                    profileEmail.textContent = email;
+                    authArea.style.display = 'none';
+                    profileArea.style.display = 'block';
+                    Haptic.selection();
+                    alert('Вход выполнен (имитация). На бэкенде реализуйте проверку кода и выдачу токена.');
+                }, { passive: true });
+
+                setAvatarBtn && setAvatarBtn.addEventListener('click', () => {
+                    Haptic.selection();
+                    const url = prompt('Вставьте URL изображения для аватара (временно)');
+                    if (url) { avatarImg.src = url; const p = state.profile || safeJSONParse(localStorage.getItem('profile')) || {}; p.avatar = url; localStorage.setItem('profile', JSON.stringify(p)); }
+                }, { passive: true });
+
+                changeAvatarBtn && changeAvatarBtn.addEventListener('click', () => {
+                    Haptic.selection();
+                    const url = prompt('Вставьте URL для нового аватара');
+                    if (url && state.profile) { state.profile.avatar = url; localStorage.setItem('profile', JSON.stringify(state.profile)); avatarImg.src = url; }
+                }, { passive: true });
+
+                logoutBtn && logoutBtn.addEventListener('click', () => {
+                    Haptic.impact && Haptic.impact('heavy');
+                    localStorage.removeItem('profile');
+                    state.profile = null;
+                    authStatus.textContent = 'Не авторизован';
+                    profileArea.style.display = 'none';
+                    authArea.style.display = 'block';
+                    avatarImg.src = '';
+                }, { passive: true });
+            }
+
+            /* Volume: only panel switch */
+            function initVolume() {
+                const panelSwitch = document.getElementById('panelVolumeSwitch');
+                const panelLabel = document.getElementById('panelVolumeLabel');
+
+                const saved = safeJSONParse(localStorage.getItem('app_state')) || {};
+                state.soundEnabled = !!saved.soundEnabled;
+                if (panelSwitch) panelSwitch.checked = state.soundEnabled;
+                if (panelLabel) panelLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+
+                const applyChange = (isOn) => {
+                    state.soundEnabled = !!isOn;
+                    if (panelLabel) panelLabel.textContent = state.soundEnabled ? 'Volume On' : 'Volume Off';
+                    localStorage.setItem('app_state', JSON.stringify({ soundEnabled: state.soundEnabled }));
+                    if (state.soundEnabled) {
+                        Haptic.softOn && Haptic.softOn();
+                        if (!state.backgroundMusic) { state.backgroundMusic = new Audio('https://cdn.freesound.org/previews/620/620461_5674468-lq.mp3'); state.backgroundMusic.loop = true; state.backgroundMusic.volume = 0.22; }
+                        state.backgroundMusic.play().catch(() => { });
+                    } else {
+                        Haptic.strongOff && Haptic.strongOff();
+                        state.backgroundMusic && state.backgroundMusic.pause();
+                    }
+                };
+
+                panelSwitch && panelSwitch.addEventListener('change', () => applyChange(panelSwitch.checked), { passive: true });
+            }
+
+            /* Theme: Automatic + cycle toggle */
+            const Theme = (function () {
+                let cycleIndex = 0; // 0 = dark (base), 1 = light, 2 = off(=>dark)
+                let auto = true;
+
+                function apply(theme) {
+                    document.documentElement.setAttribute('data-theme', theme);
+                    localStorage.setItem('ui_theme_manual', theme);
+                }
+
+                function resolveAuto() {
+                    const tgScheme = tg?.colorScheme;
+                    const sysDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+                    return tgScheme ? tgScheme : (sysDark ? 'dark' : 'light');
+                }
+
+                function updateFromAuto() {
+                    const t = resolveAuto();
+                    apply(t);
+                }
+
+                function init() {
+                    const autoSwitch = document.getElementById('autoThemeSwitch');
+                    const cycleSwitch = document.getElementById('cycleThemeSwitch');
+
+                    auto = true;
+                    if (autoSwitch) autoSwitch.checked = true;
+                    if (cycleSwitch) cycleSwitch.checked = false;
+
+                    updateFromAuto();
+
+                    autoSwitch && autoSwitch.addEventListener('change', () => {
+                        Haptic.selection();
+                        auto = !!autoSwitch.checked;
+                        if (auto) updateFromAuto();
+                        else {
+                            const manual = localStorage.getItem('ui_theme_manual') || 'dark';
+                            apply(manual);
+                        }
+                    }, { passive: true });
+
+                    if (cycleSwitch) {
+                        cycleIndex = 0;
+                        cycleSwitch.addEventListener('click', (ev) => {
+                            ev.preventDefault();
+                            Haptic.selection();
+                            cycleIndex = (cycleIndex + 1) % 3; // 0->1->2->0
+                            if (cycleIndex === 1) {
+                                auto = false; if (autoSwitch) autoSwitch.checked = false;
+                                apply('light'); cycleSwitch.checked = true;
+                            } else if (cycleIndex === 2) {
+                                auto = false; if (autoSwitch) autoSwitch.checked = false;
+                                apply('dark'); cycleSwitch.checked = false;
+                            } else {
+                                auto = false; if (autoSwitch) autoSwitch.checked = false;
+                                apply('dark'); cycleSwitch.checked = false;
+                            }
+                        }, { passive: true });
+                    }
+
+                    if (tg) tg.onEvent && tg.onEvent('themeChanged', () => { if (auto) updateFromAuto(); });
+                    window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', () => { if (auto) updateFromAuto(); });
+                }
+
+                return { init, applyManual: apply };
+            })();
+
+            /* Utilities */
+            function escapeHtml(s) { return String(s || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c])); }
+            function isValidEmail(e) { return typeof e === 'string' && /\S+@\S+\.\S+/.test(e); }
+            function isValidCode(c) { return /^\d{6}$/.test(c); }
+            function safeJSONParse(s) { try { return JSON.parse(s); } catch (e) { return null; } }
+
+            /* Init */
+            function init() {
+                initPanel(); initAuth(); initVolume(); Theme.init(); loadFacts(); renderCharacters();
+
+                // accessibility: ESC to close panel
+                document.addEventListener('keydown', (e) => {
+                    const side = document.getElementById('sidePanel');
+                    if (e.key === 'Escape' && side && side.classList.contains('open')) { side.classList.remove('open'); side.setAttribute('aria-hidden', 'true'); }
+                });
+
+                // mobile swipe-to-close
+                let startX = null;
+                document.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; }, { passive: true });
+                document.addEventListener('touchend', (e) => {
+                    if (startX === null) return;
+                    const dx = e.changedTouches[0].clientX - startX;
+                    if (dx < -80) { const side = document.getElementById('sidePanel'); side && side.classList.remove('open'); }
+                    startX = null;
+                }, { passive: true });
+            }
+
+            return { init };
+        })();
+
+        document.addEventListener('DOMContentLoaded', () => App.init(), { once: true });
+
+        /* Backend notes (for later C++ integration)
+           - POST /auth/send-code { email } -> server generates code and sends email
+           - POST /auth/verify { email, code } -> server verifies and returns token + profile
+           - Use HTTPS, rate-limits, and store codes hashed or ephemeral tokens
+           - For avatar upload: /user/avatar -> accept file, store and return URL
+           - Consider using sqlite/mysql; for C++ server use Boost.Beast or cpp-httplib + SMTP client or call external email API
+        */
+    </script>
+</body>
+
+</html>
